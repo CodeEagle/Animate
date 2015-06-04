@@ -9,7 +9,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "Animate"
-  s.version          = "0.1.0_alpha"
+  s.version          = "0.1.0"
   s.summary          = "Convenience tool for the Pop animation framework written in Swift"
   s.description      = <<-DESC
                        Convenience tool for the Facebook Pop animation framework written in Swift
