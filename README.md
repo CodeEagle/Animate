@@ -9,6 +9,30 @@ Convenience tool for the Pop animation framework written in Swift
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
+```swift
+import Animate
+
+var view:UIView! = UIView(frame: CGRectMake(10, 10, 50, 50))
+view.backgroundColor = UIColor.orangeColor()
+self.view.addSubview(view)
+view.basic { (make) -> Void in
+                make.backgroundColor = UIColor.grayColor()
+                make.center = CGPointMake(200, 200)
+            }.delay(1)
+            .spring({ (make) -> Void in
+                make.backgroundColor = UIColor.orangeColor()
+                make.center = CGPointMake(200, 300)
+            }).delay(1)
+            .decay({ (make) -> Void in
+                make.velocity(NSValue(CGPoint:CGPointMake(150, 150)),forProperty:kPOPViewCenter)
+                make.velocity(NSValue(CGRect:CGRectMake(0, 0, 200, 200)),forProperty:kPOPViewBounds)
+            }).delay(1)
+            .done { () -> Void in
+                view.removeFromSuperview()
+                view = nil
+            }
+```
+
 ## Requirements
 iOS 8.0 or later
 
