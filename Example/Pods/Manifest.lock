@@ -1,0 +1,20 @@
+PODS:
+  - Animate (0.1.0):
+    - pop (~> 1.0.7)
+  - FBSnapshotTestCase (1.8.1)
+  - pop (1.0.7)
+
+DEPENDENCIES:
+  - Animate (from `../`)
+  - FBSnapshotTestCase
+
+EXTERNAL SOURCES:
+  Animate:
+    :path: ../
+
+SPEC CHECKSUMS:
+  Animate: 4095656f9203c6f95835f1b567083d2f4204c941
+  FBSnapshotTestCase: 3dc3899168747a0319c5278f5b3445c13a6532dd
+  pop: 628ffc631644601567ee8bfaaaea493ebd7d0923
+
+COCOAPODS: 0.37.2
