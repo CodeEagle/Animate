@@ -35,14 +35,36 @@ public extension UIView {
     
     public var spring: SpringView {
         if let make = getAssociate(&ViewAnimateBase.AssociatedKeys.Spring) as? SpringView{
-            make.animateWhenSet = true
-            make.target = self
             return make
         }else{
             let make = SpringView()
             make.animateWhenSet = true
             make.target = self
             self.associateWith(make, type: &ViewAnimateBase.AssociatedKeys.Spring)
+            return make
+        }
+    }
+    
+    public var decay: DecayView {
+        if let make = getAssociate(&ViewAnimateBase.AssociatedKeys.Decay) as? DecayView{
+            return make
+        }else{
+            let make = DecayView()
+            make.animateWhenSet = true
+            make.target = self
+            self.associateWith(make, type: &ViewAnimateBase.AssociatedKeys.Decay)
+            return make
+        }
+    }
+    
+    public var basic: BasicView {
+        if let make = getAssociate(&ViewAnimateBase.AssociatedKeys.Basic) as? BasicView{
+            return make
+        }else{
+            let make = BasicView()
+            make.animateWhenSet = true
+            make.target = self
+            self.associateWith(make, type: &ViewAnimateBase.AssociatedKeys.Basic)
             return make
         }
     }
@@ -61,9 +83,9 @@ public extension UIView {
 public extension ViewAnimateBase {
     private struct AssociatedKeys {
         static var SelfRetain = "SelfRetain"
-        static var Spring = "Spring"
-        static var Decay = "Decay"
-        static var Basic = "Basic"
+        static var Spring     = "Spring"
+        static var Decay      = "Decay"
+        static var Basic      = "Basic"
     }
     
     
@@ -110,12 +132,12 @@ public class BasicView: ViewAnimateBase,AnimateApplyProtocol,POPAnimationDelegat
     /**
     @abstract The duration in seconds. Defaults to 0.4.
     */
-    var duration: CFTimeInterval!
+    public var duration: CFTimeInterval!
     
     /**
     @abstract A timing function defining the pacing of the animation. Defaults to nil indicating pacing according to kCAMediaTimingFunctionDefault.
     */
-    var timingFunction: CAMediaTimingFunction!
+    public var timingFunction: CAMediaTimingFunction!
     
     
     deinit{
@@ -268,7 +290,7 @@ public class DecayView: ViewAnimateBase,AnimateApplyProtocol,POPAnimationDelegat
     @abstract The deceleration factor.
     @discussion Values specifies should be in the range [0, 1]. Lower values results in faster deceleration. Defaults to 0.998.
     */
-    var deceleration: CGFloat!
+    public var deceleration: CGFloat!
     
     /**
     @abstract The current velocity value.
@@ -345,6 +367,7 @@ public class ViewAnimateBase: NSObject{
             }
         }
     }
+    
     public var backgroundColor: UIColor! {
         didSet {
             if let value = backgroundColor {
@@ -354,6 +377,7 @@ public class ViewAnimateBase: NSObject{
             }
         }
     }
+    
     public var bounds: CGRect!{
         didSet {
             if let value = bounds {
@@ -393,11 +417,11 @@ public class ViewAnimateBase: NSObject{
         }
     }
     
-    var scaleXY: CGFloat!{
+    public var scaleXY: CGSize!{
         didSet {
             if let value = scaleXY {
                 let anim = animator(kPOPViewScaleXY)
-                anim.toGenericValue(NSValue(CGSize: CGSizeMake(value, value)),type)
+                anim.toGenericValue(NSValue(CGSize: value),type)
                 addAnimate(anim)
             }
         }
@@ -433,12 +457,9 @@ public class ViewAnimateBase: NSObject{
         }
     }
     
-    private var animationKitAssociationKey = "animationKitAssociationKey"
-    
     private func associate(){
         if !self.target {
-//            objc_removeAssociatedObjects(self.target)
-            objc_setAssociatedObject(self.target, &animationKitAssociationKey, self, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            objc_setAssociatedObject(self.target, &AssociatedKeys.SelfRetain, self, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
         }
     }
     
@@ -472,6 +493,39 @@ public class ViewAnimateBase: NSObject{
         
     }
     
+}
+// MARK: - Setter
+extension ViewAnimateBase {
+    public func setAnimatesize(value:CGSize){
+        size = value
+    }
+    public func setAnimatealpha(value:CGFloat){
+        alpha = value
+    }
+    public func setAnimatebackgroundColor(value:UIColor){
+        backgroundColor = value
+    }
+    public func setAnimatetintColor(value:UIColor){
+        tintColor = value
+    }
+    public func setAnimatebounds(value:NSValue){
+        bounds = value.CGRectValue()
+    }
+    public func setAnimateframe(value:NSValue){
+        frame = value.CGRectValue()
+    }
+    public func setAnimatecenter(value:NSValue){
+        center = value.CGPointValue()
+    }
+    public func setAnimatescaleX(value:CGFloat){
+        scaleX = value
+    }
+    public func setAnimatescaleY(value:CGFloat){
+        scaleY = value
+    }
+    public func setAnimatescaleXY(value:NSValue){
+        scaleXY = value.CGSizeValue()
+    }
 }
 // MARK: - Private Function
 extension ViewAnimateBase {

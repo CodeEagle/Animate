@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		166B3E651B255F6000D811DA /* UIViewTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166B3E641B255F6000D811DA /* UIViewTestViewController.swift */; };
+		166B3E671B25621800D811DA /* CALayerTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166B3E661B25621800D811DA /* CALayerTestViewController.swift */; };
+		166B3E691B25622D00D811DA /* CAShapeLayerTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166B3E681B25622D00D811DA /* CAShapeLayerTestViewController.swift */; };
+		166B3E6B1B25677200D811DA /* NSLayoutConstraintTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166B3E6A1B25677200D811DA /* NSLayoutConstraintTestViewController.swift */; };
+		166B3E6D1B25678700D811DA /* UIScrollViewTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166B3E6C1B25678700D811DA /* UIScrollViewTestViewController.swift */; };
+		166B3E6F1B25679400D811DA /* UITableViewTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166B3E6E1B25679400D811DA /* UITableViewTestViewController.swift */; };
+		166B3E711B2567A300D811DA /* UICollectionViewTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166B3E701B2567A300D811DA /* UICollectionViewTestViewController.swift */; };
+		166B3E731B2567B300D811DA /* UINavigationBarTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166B3E721B2567B300D811DA /* UINavigationBarTestViewController.swift */; };
+		166B3E7D1B25680100D811DA /* UILabelTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166B3E7A1B25680100D811DA /* UILabelTestViewController.swift */; };
+		166B3E7F1B25680100D811DA /* UIToolbarTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166B3E7C1B25680100D811DA /* UIToolbarTestViewController.swift */; };
+		166B3E811B25684500D811DA /* TestTemplateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166B3E801B25684500D811DA /* TestTemplateViewController.swift */; };
+		166B3E831B256B9F00D811DA /* UITabBarTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166B3E821B256B9F00D811DA /* UITabBarTestViewController.swift */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
@@ -28,6 +40,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		166B3E641B255F6000D811DA /* UIViewTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIViewTestViewController.swift; path = TestVC/UIViewTestViewController.swift; sourceTree = "<group>"; };
+		166B3E661B25621800D811DA /* CALayerTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CALayerTestViewController.swift; path = TestVC/CALayerTestViewController.swift; sourceTree = "<group>"; };
+		166B3E681B25622D00D811DA /* CAShapeLayerTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CAShapeLayerTestViewController.swift; path = TestVC/CAShapeLayerTestViewController.swift; sourceTree = "<group>"; };
+		166B3E6A1B25677200D811DA /* NSLayoutConstraintTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSLayoutConstraintTestViewController.swift; path = TestVC/NSLayoutConstraintTestViewController.swift; sourceTree = "<group>"; };
+		166B3E6C1B25678700D811DA /* UIScrollViewTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIScrollViewTestViewController.swift; path = TestVC/UIScrollViewTestViewController.swift; sourceTree = "<group>"; };
+		166B3E6E1B25679400D811DA /* UITableViewTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITableViewTestViewController.swift; path = TestVC/UITableViewTestViewController.swift; sourceTree = "<group>"; };
+		166B3E701B2567A300D811DA /* UICollectionViewTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UICollectionViewTestViewController.swift; path = TestVC/UICollectionViewTestViewController.swift; sourceTree = "<group>"; };
+		166B3E721B2567B300D811DA /* UINavigationBarTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UINavigationBarTestViewController.swift; path = TestVC/UINavigationBarTestViewController.swift; sourceTree = "<group>"; };
+		166B3E7A1B25680100D811DA /* UILabelTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UILabelTestViewController.swift; path = TestVC/UILabelTestViewController.swift; sourceTree = "<group>"; };
+		166B3E7C1B25680100D811DA /* UIToolbarTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIToolbarTestViewController.swift; path = TestVC/UIToolbarTestViewController.swift; sourceTree = "<group>"; };
+		166B3E801B25684500D811DA /* TestTemplateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestTemplateViewController.swift; path = TestVC/TestTemplateViewController.swift; sourceTree = "<group>"; };
+		166B3E821B256B9F00D811DA /* UITabBarTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UITabBarTestViewController.swift; path = TestVC/UITabBarTestViewController.swift; sourceTree = "<group>"; };
 		19374E4F334922C9A547B604 /* Pods-Animate_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Animate_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Animate_Tests/Pods-Animate_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		3A0F60F6E24096AC6C92501A /* Animate.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Animate.podspec; path = ../Animate.podspec; sourceTree = "<group>"; };
 		5904FA6F3C9D6232D56EF1AF /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
@@ -69,6 +93,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		166B3E631B255F3800D811DA /* TestViewController */ = {
+			isa = PBXGroup;
+			children = (
+				166B3E641B255F6000D811DA /* UIViewTestViewController.swift */,
+				166B3E661B25621800D811DA /* CALayerTestViewController.swift */,
+				166B3E681B25622D00D811DA /* CAShapeLayerTestViewController.swift */,
+				166B3E6A1B25677200D811DA /* NSLayoutConstraintTestViewController.swift */,
+				166B3E6C1B25678700D811DA /* UIScrollViewTestViewController.swift */,
+				166B3E6E1B25679400D811DA /* UITableViewTestViewController.swift */,
+				166B3E701B2567A300D811DA /* UICollectionViewTestViewController.swift */,
+				166B3E721B2567B300D811DA /* UINavigationBarTestViewController.swift */,
+				166B3E7A1B25680100D811DA /* UILabelTestViewController.swift */,
+				166B3E7C1B25680100D811DA /* UIToolbarTestViewController.swift */,
+				166B3E821B256B9F00D811DA /* UITabBarTestViewController.swift */,
+				166B3E801B25684500D811DA /* TestTemplateViewController.swift */,
+			);
+			name = TestViewController;
+			sourceTree = "<group>";
+		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
@@ -95,9 +138,7 @@
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
-				607FACD91AFB9204008FA782 /* Main.storyboard */,
-				607FACDC1AFB9204008FA782 /* Images.xcassets */,
-				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
+				166B3E631B255F3800D811DA /* TestViewController */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 			);
 			name = "Example for Animate";
@@ -107,6 +148,9 @@
 		607FACD31AFB9204008FA782 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				607FACDC1AFB9204008FA782 /* Images.xcassets */,
+				607FACD91AFB9204008FA782 /* Main.storyboard */,
+				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD41AFB9204008FA782 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -358,8 +402,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				166B3E651B255F6000D811DA /* UIViewTestViewController.swift in Sources */,
+				166B3E7D1B25680100D811DA /* UILabelTestViewController.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				166B3E671B25621800D811DA /* CALayerTestViewController.swift in Sources */,
+				166B3E711B2567A300D811DA /* UICollectionViewTestViewController.swift in Sources */,
+				166B3E7F1B25680100D811DA /* UIToolbarTestViewController.swift in Sources */,
+				166B3E831B256B9F00D811DA /* UITabBarTestViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
+				166B3E6D1B25678700D811DA /* UIScrollViewTestViewController.swift in Sources */,
+				166B3E731B2567B300D811DA /* UINavigationBarTestViewController.swift in Sources */,
+				166B3E6B1B25677200D811DA /* NSLayoutConstraintTestViewController.swift in Sources */,
+				166B3E6F1B25679400D811DA /* UITableViewTestViewController.swift in Sources */,
+				166B3E811B25684500D811DA /* TestTemplateViewController.swift in Sources */,
+				166B3E691B25622D00D811DA /* CAShapeLayerTestViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

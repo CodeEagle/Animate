@@ -158,12 +158,21 @@ public protocol AnimateApplyProtocol {
 
 // MARK: - New Operator
 prefix operator ! { }
-prefix func ! <T>(obj: T?)->Bool{
+public prefix func ! <T>(obj: T?)->Bool{
     if obj == nil{
         return false
     }
     return true
 }
+
+prefix operator ?? { }
+public prefix func ?? <T>(obj: T?)->Bool{
+    if obj == nil{
+        return true
+    }
+    return false
+}
+
 
 // MARK: - AnimateType
 public enum AnimateType : Int {
