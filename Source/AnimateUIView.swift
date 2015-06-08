@@ -9,10 +9,64 @@
 import Foundation
 import pop
 
-
+// MARK: - UIView Extension
+public extension UIView {
+    
+    public func spring(@noescape closure: (make: SpringView) -> Void) -> ViewAnimateBase {
+        let make = SpringView()
+        closure(make: make)
+        make.applyTo(self)
+        return make
+    }
+    
+    public func decay(@noescape closure: (make: DecayView) -> Void) -> ViewAnimateBase {
+        let make = DecayView()
+        closure(make: make)
+        make.applyTo(self)
+        return make
+    }
+    
+    public func basic(@noescape closure: (make: BasicView) -> Void) -> ViewAnimateBase {
+        let make = BasicView()
+        closure(make: make)
+        make.applyTo(self)
+        return make
+    }
+    
+    public var spring: SpringView {
+        if let make = getAssociate(&ViewAnimateBase.AssociatedKeys.Spring) as? SpringView{
+            make.animateWhenSet = true
+            make.target = self
+            return make
+        }else{
+            let make = SpringView()
+            make.animateWhenSet = true
+            make.target = self
+            self.associateWith(make, type: &ViewAnimateBase.AssociatedKeys.Spring)
+            return make
+        }
+    }
+    
+    private func getAssociate(type:UnsafePointer<Void>)->AnyObject!{
+        return objc_getAssociatedObject(self, type)
+    }
+    
+    private func associateWith(view:AnyObject,type:UnsafePointer<Void>){
+        objc_setAssociatedObject(self, type, view, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+    }
+    
+}
 
 // MARK: - Public Function
 public extension ViewAnimateBase {
+    private struct AssociatedKeys {
+        static var SelfRetain = "SelfRetain"
+        static var Spring = "Spring"
+        static var Decay = "Decay"
+        static var Basic = "Basic"
+    }
+    
+    
 
     public func delay(delay:Double)->ViewAnimateBase{
         self.delayTime = delay
@@ -26,6 +80,7 @@ public extension ViewAnimateBase {
         let make = SpringView()
         closure(make: make)
         nextAnimation = make
+        (nextAnimation as! ViewAnimateBase).target = self
         return make
     }
     
@@ -33,6 +88,7 @@ public extension ViewAnimateBase {
         let make = DecayView()
         closure(make: make)
         nextAnimation = make
+        (nextAnimation as! ViewAnimateBase).target = self
         return make
     }
     
@@ -40,13 +96,11 @@ public extension ViewAnimateBase {
         let make = BasicView()
         closure(make: make)
         nextAnimation = make
+        (nextAnimation as! ViewAnimateBase).target = self
         return make
     }
+   
 }
-
-
-
-
 
 
 
@@ -115,37 +169,37 @@ public class SpringView: ViewAnimateBase,AnimateApplyProtocol,POPAnimationDelega
     @abstract The current velocity value.
     @discussion Set before animation start to account for initial velocity. Expressed in change of value units per second.
     */
-    var velocity: AnyObject!
+    public var velocity: AnyObject!
     
     /**
     @abstract The effective bounciness.
     @discussion Use in conjunction with 'springSpeed' to change animation effect. Values are converted into corresponding dynamics constants. Higher values increase spring movement range resulting in more oscillations and springiness. Defined as a value in the range [0, 20]. Defaults to 4.
     */
-    var springBounciness: CGFloat!
+    public var springBounciness: CGFloat!
     
     /**
     @abstract The effective speed.
     @discussion Use in conjunction with 'springBounciness' to change animation effect. Values are converted into corresponding dynamics constants. Higher values increase the dampening power of the spring resulting in a faster initial velocity and more rapid bounce slowdown. Defined as a value in the range [0, 20]. Defaults to 12.
     */
-    var springSpeed: CGFloat!
+    public var springSpeed: CGFloat!
     
     /**
     @abstract The tension used in the dynamics simulation.
     @discussion Can be used over bounciness and speed for finer grain tweaking of animation effect.
     */
-    var dynamicsTension: CGFloat!
+    public var dynamicsTension: CGFloat!
     
     /**
     @abstract The friction used in the dynamics simulation.
     @discussion Can be used over bounciness and speed for finer grain tweaking of animation effect.
     */
-    var dynamicsFriction: CGFloat!
+    public var dynamicsFriction: CGFloat!
     
     /**
     @abstract The mass used in the dynamics simulation.
     @discussion Can be used over bounciness and speed for finer grain tweaking of animation effect.
     */
-    var dynamicsMass: CGFloat!
+    public var dynamicsMass: CGFloat!
     
     
     
@@ -176,7 +230,7 @@ public class SpringView: ViewAnimateBase,AnimateApplyProtocol,POPAnimationDelega
             return
         }
         self.target = view
-        
+        animating = true
         for an in animates {
             if let anim = an as? POPSpringAnimation {
                 if !springBounciness {
@@ -280,12 +334,14 @@ public class ViewAnimateBase: NSObject{
         debugPrintln("deinit ")
     }
     
+    
+    
     public var alpha: CGFloat!{
         didSet {
             if let value = alpha {
                 let anim = animator(kPOPViewAlpha)
                 anim.toGenericValue(value,type)
-                animates.append(anim)
+                addAnimate(anim)
             }
         }
     }
@@ -294,7 +350,7 @@ public class ViewAnimateBase: NSObject{
             if let value = backgroundColor {
                 let anim = animator(kPOPViewBackgroundColor)
                 anim.toValue = value
-                animates.append(anim)
+                addAnimate(anim)
             }
         }
     }
@@ -303,7 +359,7 @@ public class ViewAnimateBase: NSObject{
             if let value = bounds {
                 let anim = animator(kPOPViewBounds)
                 anim.toGenericValue(NSValue(CGRect:value),type)
-                animates.append(anim)
+                addAnimate(anim)
             }
         }
     }
@@ -312,7 +368,7 @@ public class ViewAnimateBase: NSObject{
             if let value = center {
                 let anim = animator(kPOPViewCenter)
                 anim.toGenericValue(NSValue(CGPoint:value),type)
-                animates.append(anim)
+                addAnimate(anim)
             }
         }
     }
@@ -322,7 +378,7 @@ public class ViewAnimateBase: NSObject{
             if let value = frame {
                 let anim = animator(kPOPViewFrame)
                 anim.toGenericValue(NSValue(CGRect:value),type)
-                animates.append(anim)
+                addAnimate(anim)
             }
         }
     }
@@ -332,7 +388,7 @@ public class ViewAnimateBase: NSObject{
             if let value = scaleX {
                 let anim = animator(kPOPViewScaleX)
                 anim.toGenericValue(value,type)
-                animates.append(anim)
+                addAnimate(anim)
             }
         }
     }
@@ -342,7 +398,7 @@ public class ViewAnimateBase: NSObject{
             if let value = scaleXY {
                 let anim = animator(kPOPViewScaleXY)
                 anim.toGenericValue(NSValue(CGSize: CGSizeMake(value, value)),type)
-                animates.append(anim)
+                addAnimate(anim)
             }
         }
     }
@@ -352,7 +408,7 @@ public class ViewAnimateBase: NSObject{
             if let value = scaleY {
                 let anim = animator(kPOPViewScaleY)
                 anim.toGenericValue(value,type)
-                animates.append(anim)
+                addAnimate(anim)
             }
         }
     }
@@ -362,7 +418,7 @@ public class ViewAnimateBase: NSObject{
             if let value = size {
                 let anim = animator(kPOPViewSize)
                 anim.toGenericValue(NSValue(CGSize:value),type)
-                animates.append(anim)
+                addAnimate(anim)
             }
         }
     }
@@ -372,28 +428,28 @@ public class ViewAnimateBase: NSObject{
             if let value = tintColor {
                 let anim = animator(kPOPViewTintColor)
                 anim.toValue = value
-                animates.append(anim)
+                addAnimate(anim)
             }
         }
     }
-    
     
     private var animationKitAssociationKey = "animationKitAssociationKey"
     
     private func associate(){
         if !self.target {
-            objc_setAssociatedObject(self.target, &animationKitAssociationKey, self, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN))
+//            objc_removeAssociatedObjects(self.target)
+            objc_setAssociatedObject(self.target, &animationKitAssociationKey, self, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
         }
     }
     
-    private func clear(){
-        objc_setAssociatedObject(self.target, &animationKitAssociationKey, nil, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN))
-    }
     
     var doneBlock: NextAnimtionBlock!
     // MARK: - private
+    private var animateWhenSet: Bool = false
+    private var animating: Bool = false
     private var animates = [AnyObject]()
-    private var nextAnimation:AnyObject!
+    private var animatesQueue = [AnyObject]()
+    private weak var nextAnimation:AnyObject!
     private var delayTime: Double = 0
     private var type: AnimateType = .Spring
     private var layerType: AnimateLayer = .UIView
@@ -404,10 +460,26 @@ public class ViewAnimateBase: NSObject{
     }
     private var doneCount: Int = 0
     
+    private func addAnimate(obj:AnyObject){
+        if animating {
+            animatesQueue.insert(obj, atIndex: 0)
+        }else{
+            animates.append(obj)
+            if animateWhenSet{
+                (self as AnyObject).applyTo(self.target)
+            }
+        }
+        
+    }
     
 }
 // MARK: - Private Function
-public extension ViewAnimateBase {
+extension ViewAnimateBase {
+    
+    func debugQuickLookObject()->AnyObject?{
+        return "test"
+    }
+    
     private func animator(name:String!)->POPPropertyAnimation{
         var anim: POPPropertyAnimation = POPSpringAnimation(propertyNamed: name)
         switch type {
@@ -424,22 +496,28 @@ public extension ViewAnimateBase {
     }
     
     private func playNext(){
-        if self.delayTime > 0 {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(self.delayTime * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
-                self.play()
+        if animateWhenSet {
+            if self.animatesQueue.count > 0 {
+                let anim: AnyObject = self.animatesQueue.removeLast()
+                addAnimate(anim)
             }
         }else{
-            play()
+            if self.delayTime > 0 {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(self.delayTime
+                    * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
+                        self.play()
+                }
+            }else{
+                play()
+            }
         }
     }
     private func play(){
         if !self.nextAnimation {
             self.nextAnimation?.applyTo(self.target)
         }else{
-            !doneBlock ? doneBlock() : (debugPrint(""))
-            clear()
+            !doneBlock ? doneBlock() : (debugPrint())
         }
-        
     }
     
     // MARK: - POPAnimationDelegate
@@ -448,6 +526,10 @@ public extension ViewAnimateBase {
         anim.delegate = nil
         doneCount++
         if doneCount == self.animates.count {
+            animating = false
+            if animateWhenSet {
+                self.animates.removeAll(keepCapacity: true)
+            }
             doneCount = 0
             self.playNext()
         }

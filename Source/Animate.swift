@@ -115,31 +115,7 @@ import pop
 
 
 // MARK: - UIKit Extension
-// MARK: - UIView Extension
-public extension UIView {
-    
-    public func spring(@noescape closure: (make: SpringView) -> Void) -> ViewAnimateBase {
-        let make = SpringView()
-        closure(make: make)
-        make.applyTo(self)
-        return make
-    }
-    
-    public func decay(@noescape closure: (make: DecayView) -> Void) -> ViewAnimateBase {
-        let make = DecayView()
-        closure(make: make)
-        make.applyTo(self)
-        return make
-    }
-    
-    public func basic(@noescape closure: (make: BasicView) -> Void) -> ViewAnimateBase {
-        let make = BasicView()
-        closure(make: make)
-        make.applyTo(self)
-        return make
-    }
-    
-}
+
 // MARK: - NSLayoutConstraint Extension
 
 
