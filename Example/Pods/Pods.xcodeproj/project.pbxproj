@@ -21,6 +21,8 @@
 		161095031B1FF7BD00459955 /* Animate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161094FC1B1FF75700459955 /* Animate.swift */; };
 		161095041B1FF7C200459955 /* AnimateUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161094FD1B1FF75700459955 /* AnimateUIView.swift */; };
 		161095051B1FF7C300459955 /* AnimateUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161094FD1B1FF75700459955 /* AnimateUIView.swift */; };
+		16CDCD601B27266500223D77 /* AnimateCALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CDCD5F1B27266500223D77 /* AnimateCALayer.swift */; };
+		16CDCD611B27266500223D77 /* AnimateCALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CDCD5F1B27266500223D77 /* AnimateCALayer.swift */; };
 		17BFCDF4DB61300972DDD6ED /* UIImage+Compare.m in Sources */ = {isa = PBXBuildFile; fileRef = A7950829115A40F4D66F12BE /* UIImage+Compare.m */; };
 		19495AC35E28DE30558FBC6A /* POPSpringSolver.h in Headers */ = {isa = PBXBuildFile; fileRef = CB063EA80100B1922B78E57B /* POPSpringSolver.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		19AF5709B28218291928B4F3 /* POPAnimationExtras.mm in Sources */ = {isa = PBXBuildFile; fileRef = F9FE73F99A34EE96A3305FAC /* POPAnimationExtras.mm */; };
@@ -230,6 +232,7 @@
 		161094FD1B1FF75700459955 /* AnimateUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimateUIView.swift; sourceTree = "<group>"; };
 		161094FE1B1FF75700459955 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		164ABA53FC3DA3AB9ACE9520 /* Pods-Animate_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Animate_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		16CDCD5F1B27266500223D77 /* AnimateCALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimateCALayer.swift; sourceTree = "<group>"; };
 		1767EAD30211B3A477DED593 /* Pods-Animate_Tests-Animate.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Animate_Tests-Animate.xcconfig"; path = "../Pods-Animate_Tests-Animate/Pods-Animate_Tests-Animate.xcconfig"; sourceTree = "<group>"; };
 		19A67C1B8C5B7CD7A7305AE9 /* Pods-Animate_Example-pop-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Animate_Example-pop-dummy.m"; sourceTree = "<group>"; };
 		1BC8B47BEEF460AEBFE4A744 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -465,6 +468,7 @@
 				161094FB1B1FF75700459955 /* Animate.h */,
 				161094FC1B1FF75700459955 /* Animate.swift */,
 				161094FD1B1FF75700459955 /* AnimateUIView.swift */,
+				16CDCD5F1B27266500223D77 /* AnimateCALayer.swift */,
 				161094FE1B1FF75700459955 /* Info.plist */,
 			);
 			path = Source;
@@ -1169,6 +1173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				47166CFF1B028828CAEBFBDF /* Pods-Animate_Example-dummy.m in Sources */,
+				16CDCD601B27266500223D77 /* AnimateCALayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1177,6 +1182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				94D70DB6AEEAAFDAED7BFE34 /* Pods-Animate_Tests-dummy.m in Sources */,
+				16CDCD611B27266500223D77 /* AnimateCALayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1435,6 +1441,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B8E186F225BE0A2EEFD80087 /* Pods-Animate_Tests.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1617,6 +1624,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 164ABA53FC3DA3AB9ACE9520 /* Pods-Animate_Tests.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;

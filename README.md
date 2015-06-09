@@ -5,6 +5,10 @@ Convenience tool for the Pop animation framework written in Swift
 [![License](https://img.shields.io/cocoapods/l/Animate.svg?style=flat)](http://cocoapods.org/pods/Animate)
 [![Platform](https://img.shields.io/cocoapods/p/Animate.svg?style=flat)](http://cocoapods.org/pods/Animate)
 
+##Screenshot
+![](https://raw.githubusercontent.com/CodeEagle/Animate/master/demo1.png)
+![](https://raw.githubusercontent.com/CodeEagle/Animate/master/demo2.png)
+
 ## Usage
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.

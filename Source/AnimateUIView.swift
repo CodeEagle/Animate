@@ -12,21 +12,21 @@ import pop
 // MARK: - UIView Extension
 public extension UIView {
     
-    public func spring(@noescape closure: (make: SpringView) -> Void) -> ViewAnimateBase {
+    public func spring(@noescape closure: (make: SpringView) -> Void) -> AnimateUIView {
         let make = SpringView()
         closure(make: make)
         make.applyTo(self)
         return make
     }
     
-    public func decay(@noescape closure: (make: DecayView) -> Void) -> ViewAnimateBase {
+    public func decay(@noescape closure: (make: DecayView) -> Void) -> AnimateUIView {
         let make = DecayView()
         closure(make: make)
         make.applyTo(self)
         return make
     }
     
-    public func basic(@noescape closure: (make: BasicView) -> Void) -> ViewAnimateBase {
+    public func basic(@noescape closure: (make: BasicView) -> Void) -> AnimateUIView {
         let make = BasicView()
         closure(make: make)
         make.applyTo(self)
@@ -34,37 +34,37 @@ public extension UIView {
     }
     
     public var spring: SpringView {
-        if let make = getAssociate(&ViewAnimateBase.AssociatedKeys.Spring) as? SpringView{
+        if let make = getAssociate(&AnimateUIView.AssociatedKeys.Spring) as? SpringView{
             return make
         }else{
             let make = SpringView()
             make.animateWhenSet = true
             make.target = self
-            self.associateWith(make, type: &ViewAnimateBase.AssociatedKeys.Spring)
+            self.associateWith(make, type: &AnimateUIView.AssociatedKeys.Spring)
             return make
         }
     }
     
     public var decay: DecayView {
-        if let make = getAssociate(&ViewAnimateBase.AssociatedKeys.Decay) as? DecayView{
+        if let make = getAssociate(&AnimateUIView.AssociatedKeys.Decay) as? DecayView{
             return make
         }else{
             let make = DecayView()
             make.animateWhenSet = true
             make.target = self
-            self.associateWith(make, type: &ViewAnimateBase.AssociatedKeys.Decay)
+            self.associateWith(make, type: &AnimateUIView.AssociatedKeys.Decay)
             return make
         }
     }
     
     public var basic: BasicView {
-        if let make = getAssociate(&ViewAnimateBase.AssociatedKeys.Basic) as? BasicView{
+        if let make = getAssociate(&AnimateUIView.AssociatedKeys.Basic) as? BasicView{
             return make
         }else{
             let make = BasicView()
             make.animateWhenSet = true
             make.target = self
-            self.associateWith(make, type: &ViewAnimateBase.AssociatedKeys.Basic)
+            self.associateWith(make, type: &AnimateUIView.AssociatedKeys.Basic)
             return make
         }
     }
@@ -80,7 +80,7 @@ public extension UIView {
 }
 
 // MARK: - Public Function
-public extension ViewAnimateBase {
+public extension AnimateUIView {
     private struct AssociatedKeys {
         static var SelfRetain = "SelfRetain"
         static var Spring     = "Spring"
@@ -90,7 +90,7 @@ public extension ViewAnimateBase {
     
     
 
-    public func delay(delay:Double)->ViewAnimateBase{
+    public func delay(delay:Double)->AnimateUIView{
         self.delayTime = delay
         return self
     }
@@ -98,27 +98,27 @@ public extension ViewAnimateBase {
         self.doneBlock = done
     }
     
-    public func spring(@noescape closure: (make: SpringView) -> Void) -> ViewAnimateBase {
+    public func spring(@noescape closure: (make: SpringView) -> Void) -> AnimateUIView {
         let make = SpringView()
         closure(make: make)
         nextAnimation = make
-        (nextAnimation as! ViewAnimateBase).target = self
+        (nextAnimation as! AnimateUIView).target = self
         return make
     }
     
-    public func decay(@noescape closure: (make: DecayView) -> Void) -> ViewAnimateBase {
+    public func decay(@noescape closure: (make: DecayView) -> Void) -> AnimateUIView {
         let make = DecayView()
         closure(make: make)
         nextAnimation = make
-        (nextAnimation as! ViewAnimateBase).target = self
+        (nextAnimation as! AnimateUIView).target = self
         return make
     }
     
-    public func basic(@noescape closure: (make: BasicView) -> Void) -> ViewAnimateBase {
+    public func basic(@noescape closure: (make: BasicView) -> Void) -> AnimateUIView {
         let make = BasicView()
         closure(make: make)
         nextAnimation = make
-        (nextAnimation as! ViewAnimateBase).target = self
+        (nextAnimation as! AnimateUIView).target = self
         return make
     }
    
@@ -128,7 +128,7 @@ public extension ViewAnimateBase {
 
 // MARK: - Main Class
 // MARK: - Basic
-public class BasicView: ViewAnimateBase,AnimateApplyProtocol,POPAnimationDelegate {
+public class BasicView: AnimateUIView,AnimateApplyProtocol,POPAnimationDelegate {
     /**
     @abstract The duration in seconds. Defaults to 0.4.
     */
@@ -186,7 +186,7 @@ public class BasicView: ViewAnimateBase,AnimateApplyProtocol,POPAnimationDelegat
     }
 }
 // MARK: - Spring
-public class SpringView: ViewAnimateBase,AnimateApplyProtocol,POPAnimationDelegate{
+public class SpringView: AnimateUIView,AnimateApplyProtocol,POPAnimationDelegate{
     /**
     @abstract The current velocity value.
     @discussion Set before animation start to account for initial velocity. Expressed in change of value units per second.
@@ -285,7 +285,7 @@ public class SpringView: ViewAnimateBase,AnimateApplyProtocol,POPAnimationDelega
     
 }
 // MARK: - Decay
-public class DecayView: ViewAnimateBase,AnimateApplyProtocol,POPAnimationDelegate{
+public class DecayView: AnimateUIView,AnimateApplyProtocol,POPAnimationDelegate{
     /**
     @abstract The deceleration factor.
     @discussion Values specifies should be in the range [0, 1]. Lower values results in faster deceleration. Defaults to 0.998.
@@ -349,8 +349,8 @@ public class DecayView: ViewAnimateBase,AnimateApplyProtocol,POPAnimationDelegat
     }
 }
 
-// MARK: - ViewAnimateBase
-public class ViewAnimateBase: NSObject{
+// MARK: - AnimateUIView
+public class AnimateUIView: NSObject{
     
     deinit{
         debugPrintln("deinit ")
@@ -371,9 +371,11 @@ public class ViewAnimateBase: NSObject{
     public var backgroundColor: UIColor! {
         didSet {
             if let value = backgroundColor {
-                let anim = animator(kPOPViewBackgroundColor)
-                anim.toValue = value
-                addAnimate(anim)
+                if self.type != .Decay {
+                    let anim = animator(kPOPViewBackgroundColor)
+                    anim.toValue = value
+                    addAnimate(anim)
+                }
             }
         }
     }
@@ -450,9 +452,12 @@ public class ViewAnimateBase: NSObject{
     public var tintColor: UIColor!{
         didSet {
             if let value = tintColor {
-                let anim = animator(kPOPViewTintColor)
-                anim.toValue = value
-                addAnimate(anim)
+                if self.type != .Decay {
+                    let anim = animator(kPOPViewTintColor)
+                    anim.toValue = value
+                    addAnimate(anim)
+                }
+                
             }
         }
     }
@@ -495,7 +500,7 @@ public class ViewAnimateBase: NSObject{
     
 }
 // MARK: - Setter
-extension ViewAnimateBase {
+extension AnimateUIView {
     public func setAnimatesize(value:CGSize){
         size = value
     }
@@ -528,7 +533,7 @@ extension ViewAnimateBase {
     }
 }
 // MARK: - Private Function
-extension ViewAnimateBase {
+extension AnimateUIView {
     
     func debugQuickLookObject()->AnyObject?{
         return "test"

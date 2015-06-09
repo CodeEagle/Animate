@@ -10,7 +10,20 @@ import UIKit
 import Animate
 class UIViewTestViewController: TestTemplateViewController {
     
-    private var _testView: UIView!
+    private var _testView: UIButton!
+    var testView: UIButton {
+        if ??_testView {
+            var size = self.view.frame.size
+            _testView = UIButton.buttonWithType(.Custom) as! UIButton
+            _testView.frame = CGRectMake(size.width/2-50, 64 + 30, 100, 100)
+            _testView.setTitle("Halo", forState: UIControlState.Normal)
+            _testView.layer.cornerRadius = 8
+            _testView.layer.masksToBounds = true
+            _testView.backgroundColor = UIColor.orangeColor()
+        }
+        return _testView
+    }
+    
     private var currentProperty: Int = 3 {
         didSet{
             animateCombine()
@@ -45,14 +58,6 @@ class UIViewTestViewController: TestTemplateViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    var testView: UIView {
-        if ??_testView {
-            var size = self.view.frame.size
-            _testView = UIView(frame: CGRectMake(size.width/2-50, 64 + 30, 100, 100))
-            _testView.backgroundColor = UIColor.orangeColor()
-        }
-        return _testView
-    }
     
     func animateCombine(){
         UIView.animateWithDuration(0.2, animations: { () -> Void in
@@ -75,8 +80,11 @@ class UIViewTestViewController: TestTemplateViewController {
         
         self.testView.basic.timingFunction = CAMediaTimingFunction.easeIn()
         
-        let value: AnyObject! = self.dataList.values.array[currentProperty]
+        var value: AnyObject! = self.dataList.values.array[currentProperty]
         let key = self.dataList.keys.array[currentProperty]
+        if currentStyle == 1 && key == "alpha" {
+            value = -1.8
+        }
         animator.setValue(value, forKeyPath: "Animate"+key)
     }
 }
