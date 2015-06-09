@@ -6,8 +6,8 @@ Convenience tool for the Pop animation framework written in Swift
 [![Platform](https://img.shields.io/cocoapods/p/Animate.svg?style=flat)](http://cocoapods.org/pods/Animate)
 
 ##Screenshot
-![](https://raw.githubusercontent.com/CodeEagle/Animate/master/demo1.png)
-![](https://raw.githubusercontent.com/CodeEagle/Animate/master/demo2.png)
+<img src="https://raw.githubusercontent.com/CodeEagle/Animate/master/demo2.png" alt="" title="" width="200" />
+<img src="https://raw.githubusercontent.com/CodeEagle/Animate/master/demo1.png" alt="" title="" width="200" />
 
 ## Usage
 
@@ -35,6 +35,12 @@ view.basic { (make) -> Void in
                 view.removeFromSuperview()
                 view = nil
             }
+            
+
+//or
+
+view.spring.frame =  CGRectMake(0, 0, 200, 200)
+
 ```
 
 ## Requirements
@@ -53,6 +59,7 @@ pod "Animate"
 ## Todo Next
 
 - [x] UIView Support
+- [ ] CALayer Support
 - [ ] CAShapeLayer Support
 - [ ] NSLayoutConstraint Support
 - [ ] UIScrollView Support
