@@ -10,20 +10,18 @@ import UIKit
 import Animate
 class UIViewTestViewController: TestTemplateViewController {
     
-    private var _testView: UIButton!
-    var testView: UIButton {
-        if ??_testView {
-            var size = self.view.frame.size
-            _testView = UIButton.buttonWithType(.Custom) as! UIButton
-            _testView.frame = CGRectMake(size.width/2-50, 64 + 30, 100, 100)
-            _testView.setTitle("Halo", forState: UIControlState.Normal)
-            _testView.layer.cornerRadius = 8
-            _testView.layer.masksToBounds = true
-            _testView.backgroundColor = UIColor.orangeColor()
-        }
-        return _testView
-    }
-    
+    private lazy var testView: UIButton! = {
+        var size = self.view.frame.size
+        let atestView = UIButton.buttonWithType(.Custom) as! UIButton
+        atestView.frame = CGRectMake(size.width/2-50, 64 + 30, 100, 100)
+        atestView.setTitle("Halo", forState: UIControlState.Normal)
+        atestView.layer.cornerRadius = 8
+        atestView.layer.masksToBounds = true
+        atestView.backgroundColor = UIColor.orangeColor()
+        return atestView
+        }()
+
+
     private var currentProperty: Int = 3 {
         didSet{
             animateCombine()
@@ -65,7 +63,7 @@ class UIViewTestViewController: TestTemplateViewController {
         }) { (b) -> Void in
             if b {
                 self.testView.removeFromSuperview()
-                self._testView = nil
+                self.testView = nil
                 self.view.addSubview(self.testView)
                 self.Animate()
             }
