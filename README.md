@@ -59,7 +59,7 @@ pod "Animate"
 ## Todo Next
 
 - [x] UIView Support
-- [ ] CALayer Support
+- [x] CALayer Support
 - [ ] CAShapeLayer Support
 - [ ] NSLayoutConstraint Support
 - [ ] UIScrollView Support
