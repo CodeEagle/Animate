@@ -34,37 +34,37 @@ public extension UIView {
     }
     
     public var spring: SpringView {
-        if let make = getAssociate(&AnimateUIView.AssociatedKeys.Spring) as? SpringView{
+        if let make = getAssociate(&AnimateAssociatedKeys.Spring) as? SpringView{
             return make
         }else{
             let make = SpringView()
             make.animateWhenSet = true
             make.target = self
-            self.associateWith(make, type: &AnimateUIView.AssociatedKeys.Spring)
+            self.associateWith(make, type: &AnimateAssociatedKeys.Spring)
             return make
         }
     }
     
     public var decay: DecayView {
-        if let make = getAssociate(&AnimateUIView.AssociatedKeys.Decay) as? DecayView{
+        if let make = getAssociate(&AnimateAssociatedKeys.Decay) as? DecayView{
             return make
         }else{
             let make = DecayView()
             make.animateWhenSet = true
             make.target = self
-            self.associateWith(make, type: &AnimateUIView.AssociatedKeys.Decay)
+            self.associateWith(make, type: &AnimateAssociatedKeys.Decay)
             return make
         }
     }
     
     public var basic: BasicView {
-        if let make = getAssociate(&AnimateUIView.AssociatedKeys.Basic) as? BasicView{
+        if let make = getAssociate(&AnimateAssociatedKeys.Basic) as? BasicView{
             return make
         }else{
             let make = BasicView()
             make.animateWhenSet = true
             make.target = self
-            self.associateWith(make, type: &AnimateUIView.AssociatedKeys.Basic)
+            self.associateWith(make, type: &AnimateAssociatedKeys.Basic)
             return make
         }
     }
@@ -81,14 +81,6 @@ public extension UIView {
 
 // MARK: - Public Function
 public extension AnimateUIView {
-    private struct AssociatedKeys {
-        static var SelfRetain = "SelfRetain"
-        static var Spring     = "Spring"
-        static var Decay      = "Decay"
-        static var Basic      = "Basic"
-    }
-    
-    
 
     public func delay(delay:Double)->AnimateUIView{
         self.delayTime = delay
@@ -296,7 +288,7 @@ public class DecayView: AnimateUIView,AnimateApplyProtocol,POPAnimationDelegate{
     @abstract The current velocity value.
     @discussion Set before animation start to account for initial velocity. Expressed in change of value units per second. The only POPValueTypes supported for velocity are: kPOPValuePoint, kPOPValueInteger, kPOPValueFloat, kPOPValueRect, and kPOPValueSize.
     */
-    private var velocity: AnyObject!
+    public var velocity: AnyObject!
     
     
     convenience public init(aType: AnimateLayer){
@@ -353,7 +345,7 @@ public class DecayView: AnimateUIView,AnimateApplyProtocol,POPAnimationDelegate{
 public class AnimateUIView: NSObject{
     
     deinit{
-        debugPrintln("deinit ")
+        debugPrintln("deinit AnimateUIView")
     }
     
     
@@ -464,7 +456,7 @@ public class AnimateUIView: NSObject{
     
     private func associate(){
         if !self.target {
-            objc_setAssociatedObject(self.target, &AssociatedKeys.SelfRetain, self, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            objc_setAssociatedObject(self.target, &AnimateAssociatedKeys.SelfRetain, self, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
         }
     }
     
@@ -501,43 +493,39 @@ public class AnimateUIView: NSObject{
 }
 // MARK: - Setter
 extension AnimateUIView {
-    public func setAnimatesize(value:CGSize){
+    public func setAnimateSize(value:CGSize){
         size = value
     }
-    public func setAnimatealpha(value:CGFloat){
+    public func setAnimateAlpha(value:CGFloat){
         alpha = value
     }
-    public func setAnimatebackgroundColor(value:UIColor){
+    public func setAnimateBackgroundColor(value:UIColor){
         backgroundColor = value
     }
-    public func setAnimatetintColor(value:UIColor){
+    public func setAnimateTintColor(value:UIColor){
         tintColor = value
     }
-    public func setAnimatebounds(value:NSValue){
+    public func setAnimateBounds(value:NSValue){
         bounds = value.CGRectValue()
     }
-    public func setAnimateframe(value:NSValue){
+    public func setAnimateFrame(value:NSValue){
         frame = value.CGRectValue()
     }
-    public func setAnimatecenter(value:NSValue){
+    public func setAnimateCenter(value:NSValue){
         center = value.CGPointValue()
     }
-    public func setAnimatescaleX(value:CGFloat){
+    public func setAnimateScaleX(value:CGFloat){
         scaleX = value
     }
-    public func setAnimatescaleY(value:CGFloat){
+    public func setAnimateScaleY(value:CGFloat){
         scaleY = value
     }
-    public func setAnimatescaleXY(value:NSValue){
+    public func setAnimateScaleXY(value:NSValue){
         scaleXY = value.CGSizeValue()
     }
 }
 // MARK: - Private Function
 extension AnimateUIView {
-    
-    func debugQuickLookObject()->AnyObject?{
-        return "test"
-    }
     
     private func animator(name:String!)->POPPropertyAnimation{
         var anim: POPPropertyAnimation = POPSpringAnimation(propertyNamed: name)

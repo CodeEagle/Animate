@@ -8,40 +8,6 @@
 /*
 
 /**
-Common CALayer property names.
-*/
-let kPOPLayerBackgroundColor: String
-let kPOPLayerBounds: String
-let kPOPLayerCornerRadius: String
-let kPOPLayerBorderWidth: String
-let kPOPLayerBorderColor: String
-let kPOPLayerOpacity: String
-let kPOPLayerPosition: String
-let kPOPLayerPositionX: String
-let kPOPLayerPositionY: String
-let kPOPLayerRotation: String
-let kPOPLayerRotationX: String
-let kPOPLayerRotationY: String
-let kPOPLayerScaleX: String
-let kPOPLayerScaleXY: String
-let kPOPLayerScaleY: String
-let kPOPLayerSize: String
-let kPOPLayerSubscaleXY: String
-let kPOPLayerSubtranslationX: String
-let kPOPLayerSubtranslationXY: String
-let kPOPLayerSubtranslationY: String
-let kPOPLayerSubtranslationZ: String
-let kPOPLayerTranslationX: String
-let kPOPLayerTranslationXY: String
-let kPOPLayerTranslationY: String
-let kPOPLayerTranslationZ: String
-let kPOPLayerZPosition: String
-let kPOPLayerShadowColor: String
-let kPOPLayerShadowOffset: String
-let kPOPLayerShadowOpacity: String
-let kPOPLayerShadowRadius: String
-
-/**
 Common CAShapeLayer property names.
 */
 let kPOPShapeLayerStrokeStart: String
@@ -172,6 +138,12 @@ public prefix func ?? <T>(obj: T?)->Bool{
     }
     return false
 }
+public struct AnimateAssociatedKeys {
+    static var SelfRetain = "SelfRetain"
+    static var Spring     = "Spring"
+    static var Decay      = "Decay"
+    static var Basic      = "Basic"
+}
 
 
 // MARK: - AnimateType
@@ -225,3 +197,87 @@ public extension POPPropertyAnimation {
     }
 }
 
+// MARK: - Animator
+
+// MARK: - Spring
+public class AnimateSpring{
+    /**
+    @abstract The current velocity value.
+    @discussion Set before animation start to account for initial velocity. Expressed in change of value units per second.
+    */
+    public var velocity: AnyObject!
+    
+    /**
+    @abstract The effective bounciness.
+    @discussion Use in conjunction with 'springSpeed' to change animation effect. Values are converted into corresponding dynamics constants. Higher values increase spring movement range resulting in more oscillations and springiness. Defined as a value in the range [0, 20]. Defaults to 4.
+    */
+    public var springBounciness: CGFloat!
+    
+    /**
+    @abstract The effective speed.
+    @discussion Use in conjunction with 'springBounciness' to change animation effect. Values are converted into corresponding dynamics constants. Higher values increase the dampening power of the spring resulting in a faster initial velocity and more rapid bounce slowdown. Defined as a value in the range [0, 20]. Defaults to 12.
+    */
+    public var springSpeed: CGFloat!
+    
+    /**
+    @abstract The tension used in the dynamics simulation.
+    @discussion Can be used over bounciness and speed for finer grain tweaking of animation effect.
+    */
+    public var dynamicsTension: CGFloat!
+    
+    /**
+    @abstract The friction used in the dynamics simulation.
+    @discussion Can be used over bounciness and speed for finer grain tweaking of animation effect.
+    */
+    public var dynamicsFriction: CGFloat!
+    
+    /**
+    @abstract The mass used in the dynamics simulation.
+    @discussion Can be used over bounciness and speed for finer grain tweaking of animation effect.
+    */
+    public var dynamicsMass: CGFloat!
+    
+    deinit{
+        debugPrintln("deinit Spring")
+    }
+    
+}
+
+
+// MARK: - Decay
+public class AnimateDecay{
+    /**
+    @abstract The deceleration factor.
+    @discussion Values specifies should be in the range [0, 1]. Lower values results in faster deceleration. Defaults to 0.998.
+    */
+    public var deceleration: CGFloat!
+    
+    /**
+    @abstract The current velocity value.
+    @discussion Set before animation start to account for initial velocity. Expressed in change of value units per second. The only POPValueTypes supported for velocity are: kPOPValuePoint, kPOPValueInteger, kPOPValueFloat, kPOPValueRect, and kPOPValueSize.
+    */
+    private var velocity: AnyObject!
+    
+    deinit{
+        debugPrintln("deinit Decay")
+    }
+    
+}
+
+// MARK: - Basic
+public class AniamteBasic{
+    /**
+    @abstract The duration in seconds. Defaults to 0.4.
+    */
+    public var duration: CFTimeInterval!
+    
+    /**
+    @abstract A timing function defining the pacing of the animation. Defaults to nil indicating pacing according to kCAMediaTimingFunctionDefault.
+    */
+    public var timingFunction: CAMediaTimingFunction!
+    
+    
+    deinit{
+        debugPrintln("deinit Basic")
+    }
+}

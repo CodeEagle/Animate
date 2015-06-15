@@ -7,22 +7,11 @@
 //
 
 import UIKit
+import pop
 import Animate
 class UIViewTestViewController: TestTemplateViewController {
-    
-    private lazy var testView: UIButton! = {
-        var size = self.view.frame.size
-        let atestView = UIButton.buttonWithType(.Custom) as! UIButton
-        atestView.frame = CGRectMake(size.width/2-50, 64 + 30, 100, 100)
-        atestView.setTitle("Halo", forState: UIControlState.Normal)
-        atestView.layer.cornerRadius = 8
-        atestView.layer.masksToBounds = true
-        atestView.backgroundColor = UIColor.orangeColor()
-        return atestView
-        }()
 
-
-    private var currentProperty: Int = 3 {
+    private var currentProperty: Int = 0 {
         didSet{
             animateCombine()
         }
@@ -33,22 +22,44 @@ class UIViewTestViewController: TestTemplateViewController {
         }
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.testView.spring { (make) -> Void in
+            make.frame = CGRectMake(120, 150, 200, 400)
+            }.decay { (make) -> Void in
+                make.velocity(UIColor.greenColor(), forProperty: kPOPViewBackgroundColor)
+            }.basic { (make) -> Void in
+                make.frame = CGRectMake(self.view.bounds.size.width/2 - 50, 64 + 80, 100, 100)
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "View"
         self.dataList = [
-            "alpha":0.1,
-            "backgroundColor":UIColor.greenColor(),
-            "bounds":NSValue(CGRect: CGRectMake(0, 0, 200, 200)),
-            "center":NSValue(CGPoint: CGPointMake(50, 120)),
-            "frame":NSValue(CGRect: CGRectMake(60, 210, 80, 200)),
-            "scaleX":1.2,
-            "scaleXY":NSValue(CGSize:CGSizeMake(0.5, 1.5)),
-            "scaleY":1.7,
-            "size":NSValue(CGSize:CGSizeMake(50, 50)),
-            "tintColor":UIColor.redColor()]
-        // Do any additional setup after loading the view.
-        self.view.addSubview(self.testView)
+            "Alpha":0.1,
+            "BackgroundColor":UIColor.greenColor(),
+            "Bounds":NSValue(CGRect: CGRectMake(0, 0, 200, 200)),
+            "Center":NSValue(CGPoint: CGPointMake(60, 120)),
+            "Frame":NSValue(CGRect: CGRectMake(60, 100, 80, 200)),
+            "ScaleX":1.2,
+            "ScaleXY":NSValue(CGSize:CGSizeMake(0.5, 1.5)),
+            "ScaleY":1.7,
+            "Size":NSValue(CGSize:CGSizeMake(80, 80)),
+            "TintColor":UIColor.redColor()]
+        self.velocityList = [
+            "Alpha":-1.8,
+            "BackgroundColor":UIColor.yellowColor(),
+            "Bounds":NSValue(CGRect: CGRectMake(0, 0, 500, 200)),
+            "Center":NSValue(CGPoint: CGPointMake(100, 120)),
+            "Frame":NSValue(CGRect: CGRectMake(20, 200, 10, 200)),
+            "ScaleX":1.2,
+            "ScaleXY":NSValue(CGSize:CGSizeMake(1.5, 2.5)),
+            "ScaleY":1.7,
+            "Size":NSValue(CGSize:CGSizeMake(100, 80)),
+            "TintColor":UIColor.cyanColor()
+        ]
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,16 +84,18 @@ class UIViewTestViewController: TestTemplateViewController {
     func Animate(){
         let animator = currentStyle == 0 ? self.testView.spring : (currentStyle == 1 ? self.testView.decay : self.testView.basic)
         
+        let v: AnyObject = self.velocityList.values.array[currentProperty]
+        
         self.testView.spring.springBounciness = 20
         self.testView.spring.springSpeed = 20
+        self.testView.spring.velocity = v
         
         self.testView.basic.timingFunction = CAMediaTimingFunction.easeIn()
         
+        self.testView.decay.velocity = v
         var value: AnyObject! = self.dataList.values.array[currentProperty]
         let key = self.dataList.keys.array[currentProperty]
-        if currentStyle == 1 && key == "alpha" {
-            value = -1.8
-        }
+        
         animator.setValue(value, forKeyPath: "Animate"+key)
     }
 }

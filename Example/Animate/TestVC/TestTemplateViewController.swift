@@ -9,15 +9,53 @@
 import UIKit
 import Animate
 class TestTemplateViewController: UIViewController {
-    private var _segmentControl: UISegmentedControl!
-    private var _picker: UIPickerView!
-    private var _dataList: [String:AnyObject]!
+    
+    lazy var testView: UIButton! = {
+        var size = self.view.frame.size
+        let atestView = UIButton.buttonWithType(.Custom) as! UIButton
+        atestView.frame = CGRectMake(size.width/2-50, 64 + 80, 100, 100)
+        atestView.setTitle("Halo", forState: UIControlState.Normal)
+        atestView.layer.borderColor = UIColor.purpleColor().CGColor
+        atestView.layer.borderWidth = 4.0
+        atestView.layer.cornerRadius = 8
+        atestView.layer.shadowColor = UIColor.whiteColor().CGColor
+        atestView.layer.shadowOffset = CGSizeMake(2, 2)
+        atestView.layer.shadowOpacity = 0.3
+        
+        atestView.backgroundColor = UIColor.orangeColor()
+        return atestView
+        }()
+    
+    lazy var segmentControl: UISegmentedControl! = {
+        let seg = UISegmentedControl(items: ["Spring","Decay","Basic"])
+        seg.addTarget(self, action: "changeSegment:", forControlEvents: UIControlEvents.ValueChanged)
+        seg.tintColor = UIColor.whiteColor()
+        seg.frame = CGRectMake(0, CGRectGetHeight(self.view.frame)-216-44, CGRectGetWidth(self.view.frame), 44)
+        seg.selectedSegmentIndex = 0
+        return seg
+    }()
+    lazy var picker: UIPickerView! = {
+        let p = UIPickerView(frame: CGRectMake(0, CGRectGetHeight(self.view.frame)-216, CGRectGetWidth(self.view.frame), 216))
+        p.delegate = self
+        p.dataSource = self
+        return p
+    }()
+    lazy var dataList: [String:AnyObject]! = {
+        let value = [String:AnyObject]()
+        return value
+    }()
+    
+    lazy var velocityList: [String:AnyObject]! = {
+        let value = [String:AnyObject]()
+        return value
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.lightGrayColor()
         self.view.addSubview(self.segmentControl)
         self.view.addSubview(self.picker)
+        self.view.addSubview(self.testView)
         // Do any additional setup after loading the view.
     }
 
@@ -38,41 +76,6 @@ class TestTemplateViewController: UIViewController {
     */
     
 
-}
-
-extension TestTemplateViewController{
-    var segmentControl: UISegmentedControl {
-        if ??_segmentControl {
-            _segmentControl = UISegmentedControl(items: ["Spring","Decay","Basic"])
-            _segmentControl.addTarget(self, action: "changeSegment:", forControlEvents: UIControlEvents.ValueChanged)
-            _segmentControl.tintColor = UIColor.whiteColor()
-            _segmentControl.frame = CGRectMake(0, CGRectGetHeight(self.view.frame)-216-44, CGRectGetWidth(self.view.frame), 44)
-            _segmentControl.selectedSegmentIndex = 0
-        }
-        return _segmentControl
-    }
-    
-    var picker: UIPickerView {
-        if ??_picker {
-            _picker = UIPickerView(frame: CGRectMake(0, CGRectGetHeight(self.view.frame)-216, CGRectGetWidth(self.view.frame), 216))
-            _picker.delegate = self
-            _picker.dataSource = self
-        }
-        return _picker
-    }
-    
-    var dataList: [String:AnyObject] {
-        get {
-            if ??_dataList {
-                _dataList = [String:AnyObject]()
-            }
-            return _dataList
-        }
-        set {
-            _dataList = newValue
-        }
-        
-    }
 }
 
 extension TestTemplateViewController: UIPickerViewDataSource, UIPickerViewDelegate {
