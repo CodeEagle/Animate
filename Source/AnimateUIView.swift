@@ -449,7 +449,6 @@ public class AnimateUIView: NSObject{
                     anim.toValue = value
                     addAnimate(anim)
                 }
-                
             }
         }
     }
