@@ -29,9 +29,9 @@ class UIViewTestViewController: TestTemplateViewController {
                     make.springBounciness = 20
                     make.springSpeed = 20
                     make.frame = CGRectMake(120, 150, 200, 400)
-            }.delay(2).decay { (make) -> Void in
+            }.delay(0.5).decay { (make) -> Void in
                 make.velocity(UIColor.greenColor(), forProperty: kPOPViewBackgroundColor)
-            }.delay(2).basic { (make) -> Void in
+            }.delay(0.5).basic { (make) -> Void in
                 make.frame = CGRectMake(self.view.bounds.size.width/2 - 50, 64 + 80, 100, 100)
             }
 

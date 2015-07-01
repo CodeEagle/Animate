@@ -12,10 +12,9 @@ class TestTemplateViewController: UIViewController {
     
     lazy var testView: UIView! = {
         var size = self.view.frame.size
-        let atestView = UIView()
-        atestView.frame = CGRectMake(size.width/2-50, 64 + 80, 100, 100)
+        let atestView = UIButton(frame: CGRectMake(size.width/2-50, 64 + 80, 100, 100))
         atestView.tintColor = UIColor.redColor()
-//        atestView.setTitle("Halo", forState: UIControlState.Normal)
+        atestView.setTitle("Halo", forState: UIControlState.Normal)
         atestView.layer.borderColor = UIColor.purpleColor().CGColor
         atestView.layer.borderWidth = 4.0
         atestView.layer.cornerRadius = 8
