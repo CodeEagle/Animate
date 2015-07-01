@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UITabBarTestViewController: UIViewController {
+class UITabBarTestViewController: TestTemplateViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

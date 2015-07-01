@@ -80,45 +80,9 @@ import Foundation
 import pop
 
 
-// MARK: - UIKit Extension
-
-// MARK: - NSLayoutConstraint Extension
-
-
-public extension NSLayoutConstraint {
-//    public func spring(@noescape closure: (make: Spring) -> Void) -> ViewAnimateBase {
-//        let make = Spring()
-//        closure(make: make)
-//        make.applyTo(self)
-//        return make
-//    }
-//    
-//    public func decay(@noescape closure: (make: Decay) -> Void) -> ViewAnimateBase {
-//        let make = Decay()
-//        closure(make: make)
-//        make.applyTo(self)
-//        return make
-//    }
-//    
-//    public func basic(@noescape closure: (make: Basic) -> Void) -> ViewAnimateBase {
-//        let make = Basic()
-//        closure(make: make)
-//        make.applyTo(self)
-//        return make
-//    }
-}
-
-
-
-
-
-
-
-
-
 
 // MARK: - AnimateApplyProtocol
-public protocol AnimateApplyProtocol {
+public protocol AnimateApplyProtocol: class {
     func applyTo(target: AnyObject)
 }
 
@@ -143,6 +107,7 @@ public struct AnimateAssociatedKeys {
     static var Spring     = "Spring"
     static var Decay      = "Decay"
     static var Basic      = "Basic"
+    static var Queue      = "Queue"
 }
 
 
@@ -197,87 +162,145 @@ public extension POPPropertyAnimation {
     }
 }
 
-// MARK: - Animator
 
-// MARK: - Spring
-public class AnimateSpring{
-    /**
-    @abstract The current velocity value.
-    @discussion Set before animation start to account for initial velocity. Expressed in change of value units per second.
-    */
-    public var velocity: AnyObject!
+public extension NSObject {
     
-    /**
-    @abstract The effective bounciness.
-    @discussion Use in conjunction with 'springSpeed' to change animation effect. Values are converted into corresponding dynamics constants. Higher values increase spring movement range resulting in more oscillations and springiness. Defined as a value in the range [0, 20]. Defaults to 4.
-    */
-    public var springBounciness: CGFloat!
+    public func spring(@noescape closure: (make: AnimateSpring) -> Void) -> AnimateSpring {
+        let make = AnimateSpring()
+        closure(make: make)
+        var target:NSObject = self
+        if let obj = self as? BasicProperties {
+            target = obj.target
+        }
+        make.target = target
+        let op = NSBlockOperation()
+        op.addExecutionBlock { () -> Void in
+            make.applyTo(target)
+        }
+        target.AnimatePopQueue.addBlockOperation(op)
+        return make
+    }
     
-    /**
-    @abstract The effective speed.
-    @discussion Use in conjunction with 'springBounciness' to change animation effect. Values are converted into corresponding dynamics constants. Higher values increase the dampening power of the spring resulting in a faster initial velocity and more rapid bounce slowdown. Defined as a value in the range [0, 20]. Defaults to 12.
-    */
-    public var springSpeed: CGFloat!
+    public func decay(@noescape closure: (make: AnimateDecay) -> Void) -> AnimateDecay {
+        let make = AnimateDecay()
+        closure(make: make)
+        var target:NSObject = self
+        if let obj = self as? BasicProperties {
+            target = obj.target
+        }
+        make.target = target
+        let op = NSBlockOperation()
+        op.addExecutionBlock { () -> Void in
+            make.applyTo(target)
+        }
+        target.AnimatePopQueue.addBlockOperation(op)
+        return make
+    }
     
-    /**
-    @abstract The tension used in the dynamics simulation.
-    @discussion Can be used over bounciness and speed for finer grain tweaking of animation effect.
-    */
-    public var dynamicsTension: CGFloat!
+    public func basic(@noescape closure: (make: AnimateBasic) -> Void) -> AnimateBasic {
+        let make = AnimateBasic()
+        closure(make: make)
+        var target:NSObject = self
+        if let obj = self as? BasicProperties {
+            target = obj.target
+        }
+        make.target = target
+        let op = NSBlockOperation()
+        op.addExecutionBlock { () -> Void in
+            make.applyTo(target)
+        }
+        target.AnimatePopQueue.addBlockOperation(op)
+        return make
+    }
+    // MARK: - Animater
+    public var spring: AnimateSpring {
+        if let make = getAssociate(&AnimateAssociatedKeys.Spring) as? AnimateSpring{
+            return make
+        }else{
+            let make = AnimateSpring()
+            make.animateWhenSet = true
+            var target:NSObject = self
+            
+            if let obj = self as? BasicProperties {
+                target = obj.target
+            }
+            make.target = target
+            make.applyTo(target)
+            self.associateWith(make, type: &AnimateAssociatedKeys.Spring)
+            return make
+        }
+    }
     
-    /**
-    @abstract The friction used in the dynamics simulation.
-    @discussion Can be used over bounciness and speed for finer grain tweaking of animation effect.
-    */
-    public var dynamicsFriction: CGFloat!
+    public var decay: AnimateDecay {
+        if let make = getAssociate(&AnimateAssociatedKeys.Decay) as? AnimateDecay{
+            return make
+        }else{
+            let make = AnimateDecay()
+            make.animateWhenSet = true
+            var target:NSObject = self
+            if let obj = self as? BasicProperties {
+                target = obj.target
+            }
+            make.target = target
+            make.applyTo(target)
+            self.associateWith(make, type: &AnimateAssociatedKeys.Decay)
+            return make
+        }
+    }
     
-    /**
-    @abstract The mass used in the dynamics simulation.
-    @discussion Can be used over bounciness and speed for finer grain tweaking of animation effect.
-    */
-    public var dynamicsMass: CGFloat!
-    
-    deinit{
-        debugPrintln("deinit Spring")
+    public var basic: AnimateBasic {
+        if let make = getAssociate(&AnimateAssociatedKeys.Basic) as? AnimateBasic{
+            return make
+        }else{
+            let make = AnimateBasic()
+            make.animateWhenSet = true
+            var target:NSObject = self
+            if let obj = self as? BasicProperties {
+                target = obj.target
+            }
+            make.target = target
+            make.applyTo(target)
+            self.associateWith(make, type: &AnimateAssociatedKeys.Basic)
+            return make
+        }
     }
     
 }
-
-
-// MARK: - Decay
-public class AnimateDecay{
-    /**
-    @abstract The deceleration factor.
-    @discussion Values specifies should be in the range [0, 1]. Lower values results in faster deceleration. Defaults to 0.998.
-    */
-    public var deceleration: CGFloat!
-    
-    /**
-    @abstract The current velocity value.
-    @discussion Set before animation start to account for initial velocity. Expressed in change of value units per second. The only POPValueTypes supported for velocity are: kPOPValuePoint, kPOPValueInteger, kPOPValueFloat, kPOPValueRect, and kPOPValueSize.
-    */
-    private var velocity: AnyObject!
-    
-    deinit{
-        debugPrintln("deinit Decay")
-    }
-    
-}
-
-// MARK: - Basic
-public class AniamteBasic{
-    /**
-    @abstract The duration in seconds. Defaults to 0.4.
-    */
-    public var duration: CFTimeInterval!
-    
-    /**
-    @abstract A timing function defining the pacing of the animation. Defaults to nil indicating pacing according to kCAMediaTimingFunctionDefault.
-    */
-    public var timingFunction: CAMediaTimingFunction!
-    
-    
-    deinit{
-        debugPrintln("deinit Basic")
+extension NSMutableArray {
+    func addBlockOperation(block:NSBlockOperation){
+        self.insertObject(block, atIndex: 0)
+        if self.count == 1 {
+            block.start()
+        }
     }
 }
+public extension NSObject {
+    public var AnimatePopQueue:NSMutableArray {
+        if let queue = getAssociate(&AnimateAssociatedKeys.Queue) as? NSMutableArray{
+            return queue
+        }else{
+            let queue = NSMutableArray()
+            self.associateWith(queue, type: &AnimateAssociatedKeys.Queue)
+            return queue
+        }
+    }
+}
+extension NSObject {
+    private func getAssociate(type:UnsafePointer<Void>)->AnyObject!{
+        return objc_getAssociatedObject(self, type)
+    }
+    
+    private func associateWith(aniamte:AnyObject,type:UnsafePointer<Void>){
+        objc_setAssociatedObject(self, type, aniamte, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+    }
+}
+
+
+
+
+
+
+
+
+
+

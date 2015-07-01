@@ -16,13 +16,17 @@
 		11C99AB89FEC29057AD18F70 /* POPAction.h in Headers */ = {isa = PBXBuildFile; fileRef = E04BBD723237E55B99B2A66F /* POPAction.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		1243FB2B7A55FB628433C779 /* POPSpringAnimationInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 7EB731B8912912B802EF6ECF /* POPSpringAnimationInternal.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		15FA8CEC358BEE53D14ADB38 /* POPDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 38FF86D72EEA4166BE20E2E3 /* POPDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		160D01E81B2E8AF3007325BF /* AnimateCALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CDCD5F1B27266500223D77 /* AnimateCALayer.swift */; };
-		160D01E91B2E8AF4007325BF /* AnimateCALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CDCD5F1B27266500223D77 /* AnimateCALayer.swift */; };
 		161094FF1B1FF75700459955 /* Animate.h in Headers */ = {isa = PBXBuildFile; fileRef = 161094FB1B1FF75700459955 /* Animate.h */; };
 		161095021B1FF7BC00459955 /* Animate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161094FC1B1FF75700459955 /* Animate.swift */; };
 		161095031B1FF7BD00459955 /* Animate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161094FC1B1FF75700459955 /* Animate.swift */; };
-		161095041B1FF7C200459955 /* AnimateUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161094FD1B1FF75700459955 /* AnimateUIView.swift */; };
-		161095051B1FF7C300459955 /* AnimateUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 161094FD1B1FF75700459955 /* AnimateUIView.swift */; };
+		162FF9E71B3A956800FD47A8 /* BasicProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162FF9E51B3A951500FD47A8 /* BasicProperties.swift */; };
+		162FF9E81B3A956A00FD47A8 /* BasicProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162FF9E51B3A951500FD47A8 /* BasicProperties.swift */; };
+		162FF9EB1B3A98AB00FD47A8 /* AnimateSpring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162FF9E91B3A989C00FD47A8 /* AnimateSpring.swift */; };
+		162FF9EC1B3A98AD00FD47A8 /* AnimateSpring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162FF9E91B3A989C00FD47A8 /* AnimateSpring.swift */; };
+		162FF9EF1B3A99D700FD47A8 /* AnimateDecay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162FF9ED1B3A99A500FD47A8 /* AnimateDecay.swift */; };
+		162FF9F01B3A99D800FD47A8 /* AnimateDecay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162FF9ED1B3A99A500FD47A8 /* AnimateDecay.swift */; };
+		162FF9F21B3A9A8600FD47A8 /* AnimateBasic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162FF9F11B3A9A8600FD47A8 /* AnimateBasic.swift */; };
+		162FF9F31B3A9A8600FD47A8 /* AnimateBasic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 162FF9F11B3A9A8600FD47A8 /* AnimateBasic.swift */; };
 		17BFCDF4DB61300972DDD6ED /* UIImage+Compare.m in Sources */ = {isa = PBXBuildFile; fileRef = A7950829115A40F4D66F12BE /* UIImage+Compare.m */; };
 		19495AC35E28DE30558FBC6A /* POPSpringSolver.h in Headers */ = {isa = PBXBuildFile; fileRef = CB063EA80100B1922B78E57B /* POPSpringSolver.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		19AF5709B28218291928B4F3 /* POPAnimationExtras.mm in Sources */ = {isa = PBXBuildFile; fileRef = F9FE73F99A34EE96A3305FAC /* POPAnimationExtras.mm */; };
@@ -229,10 +233,12 @@
 		0EC38B01106ABF85FBE4683D /* POPBasicAnimation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = POPBasicAnimation.h; path = pop/POPBasicAnimation.h; sourceTree = "<group>"; };
 		161094FB1B1FF75700459955 /* Animate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animate.h; sourceTree = "<group>"; };
 		161094FC1B1FF75700459955 /* Animate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animate.swift; sourceTree = "<group>"; };
-		161094FD1B1FF75700459955 /* AnimateUIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimateUIView.swift; sourceTree = "<group>"; };
 		161094FE1B1FF75700459955 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		162FF9E51B3A951500FD47A8 /* BasicProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicProperties.swift; sourceTree = "<group>"; };
+		162FF9E91B3A989C00FD47A8 /* AnimateSpring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimateSpring.swift; sourceTree = "<group>"; };
+		162FF9ED1B3A99A500FD47A8 /* AnimateDecay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimateDecay.swift; sourceTree = "<group>"; };
+		162FF9F11B3A9A8600FD47A8 /* AnimateBasic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimateBasic.swift; sourceTree = "<group>"; };
 		164ABA53FC3DA3AB9ACE9520 /* Pods-Animate_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Animate_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		16CDCD5F1B27266500223D77 /* AnimateCALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimateCALayer.swift; sourceTree = "<group>"; };
 		1767EAD30211B3A477DED593 /* Pods-Animate_Tests-Animate.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Animate_Tests-Animate.xcconfig"; path = "../Pods-Animate_Tests-Animate/Pods-Animate_Tests-Animate.xcconfig"; sourceTree = "<group>"; };
 		19A67C1B8C5B7CD7A7305AE9 /* Pods-Animate_Example-pop-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Animate_Example-pop-dummy.m"; sourceTree = "<group>"; };
 		1BC8B47BEEF460AEBFE4A744 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -467,8 +473,10 @@
 			children = (
 				161094FB1B1FF75700459955 /* Animate.h */,
 				161094FC1B1FF75700459955 /* Animate.swift */,
-				161094FD1B1FF75700459955 /* AnimateUIView.swift */,
-				16CDCD5F1B27266500223D77 /* AnimateCALayer.swift */,
+				162FF9E51B3A951500FD47A8 /* BasicProperties.swift */,
+				162FF9E91B3A989C00FD47A8 /* AnimateSpring.swift */,
+				162FF9ED1B3A99A500FD47A8 /* AnimateDecay.swift */,
+				162FF9F11B3A9A8600FD47A8 /* AnimateBasic.swift */,
 				161094FE1B1FF75700459955 /* Info.plist */,
 			);
 			path = Source;
@@ -1008,6 +1016,7 @@
 		6628AEE3AEBAA938813A6130 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
 			};
 			buildConfigurationList = 8B9317F14E75239D9EB90275 /* Build configuration list for PBXProject "Pods" */;
@@ -1080,10 +1089,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				161095041B1FF7C200459955 /* AnimateUIView.swift in Sources */,
+				162FF9EB1B3A98AB00FD47A8 /* AnimateSpring.swift in Sources */,
+				162FF9EF1B3A99D700FD47A8 /* AnimateDecay.swift in Sources */,
+				162FF9E71B3A956800FD47A8 /* BasicProperties.swift in Sources */,
 				57A5BC41523379D77D3C1890 /* Pods-Animate_Example-Animate-dummy.m in Sources */,
 				161095021B1FF7BC00459955 /* Animate.swift in Sources */,
-				160D01E81B2E8AF3007325BF /* AnimateCALayer.swift in Sources */,
+				162FF9F21B3A9A8600FD47A8 /* AnimateBasic.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1111,10 +1122,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				161095051B1FF7C300459955 /* AnimateUIView.swift in Sources */,
+				162FF9EC1B3A98AD00FD47A8 /* AnimateSpring.swift in Sources */,
+				162FF9F01B3A99D800FD47A8 /* AnimateDecay.swift in Sources */,
+				162FF9E81B3A956A00FD47A8 /* BasicProperties.swift in Sources */,
 				5865EED975E63488CC5A3F63 /* Pods-Animate_Tests-Animate-dummy.m in Sources */,
 				161095031B1FF7BD00459955 /* Animate.swift in Sources */,
-				160D01E91B2E8AF4007325BF /* AnimateCALayer.swift in Sources */,
+				162FF9F31B3A9A8600FD47A8 /* AnimateBasic.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

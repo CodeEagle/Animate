@@ -24,13 +24,17 @@ class UIViewTestViewController: TestTemplateViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        self.testView.spring { (make) -> Void in
-            make.frame = CGRectMake(120, 150, 200, 400)
-            }.decay { (make) -> Void in
+        self.testView
+                .spring { (make) -> Void in
+                    make.springBounciness = 20
+                    make.springSpeed = 20
+                    make.frame = CGRectMake(120, 150, 200, 400)
+            }.delay(2).decay { (make) -> Void in
                 make.velocity(UIColor.greenColor(), forProperty: kPOPViewBackgroundColor)
-            }.basic { (make) -> Void in
+            }.delay(2).basic { (make) -> Void in
                 make.frame = CGRectMake(self.view.bounds.size.width/2 - 50, 64 + 80, 100, 100)
-        }
+            }
+
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,7 +97,7 @@ class UIViewTestViewController: TestTemplateViewController {
         self.testView.basic.timingFunction = CAMediaTimingFunction.easeIn()
         
         self.testView.decay.velocity = v
-        var value: AnyObject! = self.dataList.values.array[currentProperty]
+        let value: AnyObject! = self.dataList.values.array[currentProperty]
         let key = self.dataList.keys.array[currentProperty]
         
         animator.setValue(value, forKeyPath: "Animate"+key)

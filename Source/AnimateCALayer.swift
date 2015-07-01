@@ -11,111 +11,111 @@ import pop
 
 
 // MARK: - CALayer Extension
-public extension CALayer {
-    
-    public func spring(@noescape closure: (make: SpringLayer) -> Void) -> AnimateCALayer {
-        let make = SpringLayer()
-        closure(make: make)
-        make.applyTo(self)
-        return make
-    }
-    
-    public func decay(@noescape closure: (make: DecayLayer) -> Void) -> AnimateCALayer {
-        let make = DecayLayer()
-        closure(make: make)
-        make.applyTo(self)
-        return make
-    }
-    
-    public func basic(@noescape closure: (make: BasicLayer) -> Void) -> AnimateCALayer {
-        let make = BasicLayer()
-        closure(make: make)
-        make.applyTo(self)
-        return make
-    }
-    
-    public var spring: SpringLayer {
-        if let make = getAssociate(&AnimateAssociatedKeys.Spring) as? SpringLayer{
-            return make
-        }else{
-            let make = SpringLayer()
-            make.animateWhenSet = true
-            make.target = self
-            self.associateWith(make, type: &AnimateAssociatedKeys.Spring)
-            return make
-        }
-    }
-    
-    public var decay: DecayLayer {
-        if let make = getAssociate(&AnimateAssociatedKeys.Decay) as? DecayLayer{
-            return make
-        }else{
-            let make = DecayLayer()
-            make.animateWhenSet = true
-            make.target = self
-            self.associateWith(make, type: &AnimateAssociatedKeys.Decay)
-            return make
-        }
-    }
-    
-    public var basic: BasicLayer {
-        if let make = getAssociate(&AnimateAssociatedKeys.Basic) as? BasicLayer{
-            return make
-        }else{
-            let make = BasicLayer()
-            make.animateWhenSet = true
-            make.target = self
-            self.associateWith(make, type: &AnimateAssociatedKeys.Basic)
-            return make
-        }
-    }
-    
-    private func getAssociate(type:UnsafePointer<Void>)->AnyObject!{
-        return objc_getAssociatedObject(self, type)
-    }
-    
-    private func associateWith(view:AnyObject,type:UnsafePointer<Void>){
-        objc_setAssociatedObject(self, type, view, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
-    }
-    
-}
+//public extension CALayer {
+//    
+//    public func spring(@noescape closure: (make: SpringLayer) -> Void) -> AnimateCALayer {
+//        let make = SpringLayer()
+//        closure(make: make)
+//        make.applyTo(self)
+//        return make
+//    }
+//    
+//    public func decay(@noescape closure: (make: DecayLayer) -> Void) -> AnimateCALayer {
+//        let make = DecayLayer()
+//        closure(make: make)
+//        make.applyTo(self)
+//        return make
+//    }
+//    
+//    public func basic(@noescape closure: (make: BasicLayer) -> Void) -> AnimateCALayer {
+//        let make = BasicLayer()
+//        closure(make: make)
+//        make.applyTo(self)
+//        return make
+//    }
+//    
+//    public var spring: SpringLayer {
+//        if let make = getAssociate(&AnimateAssociatedKeys.Spring) as? SpringLayer{
+//            return make
+//        }else{
+//            let make = SpringLayer()
+//            make.animateWhenSet = true
+//            make.target = self
+//            self.associateWith(make, type: &AnimateAssociatedKeys.Spring)
+//            return make
+//        }
+//    }
+//    
+//    public var decay: DecayLayer {
+//        if let make = getAssociate(&AnimateAssociatedKeys.Decay) as? DecayLayer{
+//            return make
+//        }else{
+//            let make = DecayLayer()
+//            make.animateWhenSet = true
+//            make.target = self
+//            self.associateWith(make, type: &AnimateAssociatedKeys.Decay)
+//            return make
+//        }
+//    }
+//    
+//    public var basic: BasicLayer {
+//        if let make = getAssociate(&AnimateAssociatedKeys.Basic) as? BasicLayer{
+//            return make
+//        }else{
+//            let make = BasicLayer()
+//            make.animateWhenSet = true
+//            make.target = self
+//            self.associateWith(make, type: &AnimateAssociatedKeys.Basic)
+//            return make
+//        }
+//    }
+//    
+//    private func getAssociate(type:UnsafePointer<Void>)->AnyObject!{
+//        return objc_getAssociatedObject(self, type)
+//    }
+//    
+//    private func associateWith(view:AnyObject,type:UnsafePointer<Void>){
+//        objc_setAssociatedObject(self, type, view, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+//    }
+//    
+//}
 
 // MARK: - Public Function
-public extension AnimateCALayer {
-    
-    public func delay(delay:Double)->AnimateCALayer{
-        self.delayTime = delay
-        return self
-    }
-    public func done(done:NextAnimtionBlock){
-        self.doneBlock = done
-    }
-    
-    public func spring(@noescape closure: (make: SpringLayer) -> Void) -> AnimateCALayer {
-        let make = SpringLayer()
-        closure(make: make)
-        nextAnimation = make
-        (nextAnimation as! AnimateCALayer).target = self
-        return make
-    }
-    
-    public func decay(@noescape closure: (make: DecayLayer) -> Void) -> AnimateCALayer {
-        let make = DecayLayer()
-        closure(make: make)
-        nextAnimation = make
-        (nextAnimation as! AnimateCALayer).target = self
-        return make
-    }
-    
-    public func basic(@noescape closure: (make: BasicLayer) -> Void) -> AnimateCALayer {
-        let make = BasicLayer()
-        closure(make: make)
-        nextAnimation = make
-        (nextAnimation as! AnimateCALayer).target = self
-        return make
-    }
-    
-}
+//public extension AnimateCALayer {
+//    
+//    public func delay(delay:Double)->AnimateCALayer{
+//        self.delayTime = delay
+//        return self
+//    }
+//    public func done(done:NextAnimtionBlock){
+//        self.doneBlock = done
+//    }
+//    
+//    public func spring(@noescape closure: (make: SpringLayer) -> Void) -> AnimateCALayer {
+//        let make = SpringLayer()
+//        closure(make: make)
+//        nextAnimation = make
+//        (nextAnimation as! AnimateCALayer).target = self
+//        return make
+//    }
+//    
+//    public func decay(@noescape closure: (make: DecayLayer) -> Void) -> AnimateCALayer {
+//        let make = DecayLayer()
+//        closure(make: make)
+//        nextAnimation = make
+//        (nextAnimation as! AnimateCALayer).target = self
+//        return make
+//    }
+//    
+//    public func basic(@noescape closure: (make: BasicLayer) -> Void) -> AnimateCALayer {
+//        let make = BasicLayer()
+//        closure(make: make)
+//        nextAnimation = make
+//        (nextAnimation as! AnimateCALayer).target = self
+//        return make
+//    }
+//    
+//}
 
 // MARK: - Basic
 public class BasicLayer: AnimateCALayer,AnimateApplyProtocol,POPAnimationDelegate {
@@ -131,13 +131,10 @@ public class BasicLayer: AnimateCALayer,AnimateApplyProtocol,POPAnimationDelegat
     
     
     deinit{
-        debugPrintln("deinit Basic")
+        debugPrint("deinit Basic", appendNewline: false)
     }
     
-    convenience public init(aType: AnimateLayer){
-        self.init()
-        layerType = aType
-    }
+    
     
     public override init() {
         super.init()
@@ -149,7 +146,7 @@ public class BasicLayer: AnimateCALayer,AnimateApplyProtocol,POPAnimationDelegat
     /**
     Apply animate to view
     
-    :param: view to animate
+    - parameter view: to animate
     */
     public func applyTo(view:AnyObject){
         if animates.count == 0 {
@@ -216,13 +213,10 @@ public class SpringLayer: AnimateCALayer,AnimateApplyProtocol,POPAnimationDelega
     
     
     deinit{
-        debugPrintln("deinit Spring")
+        debugPrint("deinit Spring", appendNewline: false)
     }
     
-    convenience public init(aType: AnimateLayer){
-        self.init()
-        layerType = aType
-    }
+    
     
     public override init() {
         super.init()
@@ -234,7 +228,7 @@ public class SpringLayer: AnimateCALayer,AnimateApplyProtocol,POPAnimationDelega
     /**
     Apply animate to view
     
-    :param: view to animate
+    - parameter view: to animate
     */
     public func applyTo(view:AnyObject){
         if animates.count == 0 {
@@ -275,7 +269,6 @@ public class SpringLayer: AnimateCALayer,AnimateApplyProtocol,POPAnimationDelega
     
 }
 // MARK: - Decay
-
 public class DecayLayer: AnimateCALayer,AnimateApplyProtocol,POPAnimationDelegate{
     /**
     @abstract The deceleration factor.
@@ -290,17 +283,14 @@ public class DecayLayer: AnimateCALayer,AnimateApplyProtocol,POPAnimationDelegat
     private var velocity: AnyObject!
     
     
-    convenience public init(aType: AnimateLayer){
-        self.init()
-        layerType = aType
-    }
+    
     
     public override init() {
         super.init()
         type = .Decay
     }
     deinit{
-        debugPrintln("deinit Decay")
+        debugPrint("deinit Decay", appendNewline: false)
     }
     
     public func velocity(v:AnyObject,forProperty property:String){
@@ -313,7 +303,7 @@ public class DecayLayer: AnimateCALayer,AnimateApplyProtocol,POPAnimationDelegat
     /**
     Apply animate to view
     
-    :param: view to animate
+    - parameter view: to animate
     */
     public func applyTo(view:AnyObject){
         if animates.count == 0 {
@@ -343,7 +333,7 @@ public class DecayLayer: AnimateCALayer,AnimateApplyProtocol,POPAnimationDelegat
 // MARK: - AnimateCALayer
 public class AnimateCALayer: NSObject {
     deinit{
-        debugPrintln("deinit AnimateCALayer")
+        debugPrint("deinit AnimateCALayer", appendNewline: false)
     }
     
     public var backgroundColor: UIColor!{
@@ -651,7 +641,7 @@ public class AnimateCALayer: NSObject {
     
     private func associate(){
         if !self.target {
-            objc_setAssociatedObject(self.target, &AnimateAssociatedKeys.SelfRetain, self, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            objc_setAssociatedObject(self.target, &AnimateAssociatedKeys.SelfRetain, self, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
@@ -664,7 +654,6 @@ public class AnimateCALayer: NSObject {
     private weak var nextAnimation:AnyObject!
     private var delayTime: Double = 0
     private var type: AnimateType = .Spring
-    private var layerType: AnimateLayer = .UIView
     private weak var target: AnyObject!{
         didSet{
             self.associate()
@@ -818,7 +807,7 @@ extension AnimateCALayer {
         if !self.nextAnimation {
             self.nextAnimation?.applyTo(self.target)
         }else{
-            !doneBlock ? doneBlock() : (debugPrint())
+            !doneBlock ? doneBlock() : (debugPrint("", appendNewline: false))
         }
     }
     

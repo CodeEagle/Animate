@@ -1,126 +1,122 @@
 //
-//  AnimateUIView.swift
+//  AnimateShape.swift
 //  Pods
 //
-//  Created by LawLincoln on 15/6/4.
+//  Created by LawLincoln on 15/6/16.
 //
 //
 
-import Foundation
+import UIKit
 import pop
+// MARK: - CALayer Extension
+public extension CAShapeLayer {
+    
+    public func springs(@noescape closure: (make: SpringShape) -> Void) -> AnimateShape {
+        let make = SpringShape()
+        closure(make: make)
+        make.applyTo(self)
+        return make
+    }
+    
+    public func decays(@noescape closure: (make: DecayShape) -> Void) -> AnimateShape {
+        let make = DecayShape()
+        closure(make: make)
+        make.applyTo(self)
+        return make
+    }
+    
+    public func basics(@noescape closure: (make: BasicShape) -> Void) -> AnimateShape {
+        let make = BasicShape()
+        closure(make: make)
+        make.applyTo(self)
+        return make
+    }
+    
+    public var springs: SpringShape {
+        if let make = getAssociate(&AnimateAssociatedKeys.Spring) as? SpringShape{
+            return make
+        }else{
+            let make = SpringShape()
+            make.animateWhenSet = true
+            make.target = self
+            self.associateWith(make, type: &AnimateAssociatedKeys.Spring)
+            return make
+        }
+    }
+    
+    public var decays: DecayShape {
+        if let make = getAssociate(&AnimateAssociatedKeys.Decay) as? DecayShape{
+            return make
+        }else{
+            let make = DecayShape()
+            make.animateWhenSet = true
+            make.target = self
+            self.associateWith(make, type: &AnimateAssociatedKeys.Decay)
+            return make
+        }
+    }
+    
+    public var basics: BasicShape {
+        if let make = getAssociate(&AnimateAssociatedKeys.Basic) as? BasicShape{
+            return make
+        }else{
+            let make = BasicShape()
+            make.animateWhenSet = true
+            make.target = self
+            self.associateWith(make, type: &AnimateAssociatedKeys.Basic)
+            return make
+        }
+    }
+    
+    private func getAssociate(type:UnsafePointer<Void>)->AnyObject!{
+        return objc_getAssociatedObject(self, type)
+    }
+    
+    private func associateWith(view:AnyObject,type:UnsafePointer<Void>){
+        objc_setAssociatedObject(self, type, view, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+    }
+    
+}
 
-//// MARK: - UIView Extension
-//public extension UIView {
-//    
-//    public func spring(@noescape closure: (make: SpringView) -> Void) -> AnimateUIView {
-//        let make = SpringView()
-//        closure(make: make)
-//        make.applyTo(self)
-//        return make
-//    }
-//    
-//    public func decay(@noescape closure: (make: DecayView) -> Void) -> AnimateUIView {
-//        let make = DecayView()
-//        closure(make: make)
-//        make.applyTo(self)
-//        return make
-//    }
-//    
-//    public func basic(@noescape closure: (make: BasicView) -> Void) -> AnimateUIView {
-//        let make = BasicView()
-//        closure(make: make)
-//        make.applyTo(self)
-//        return make
-//    }
-//    
-//    public var spring: SpringView {
-//        if let make = getAssociate(&AnimateAssociatedKeys.Spring) as? SpringView{
-//            return make
-//        }else{
-//            let make = SpringView()
-//            make.animateWhenSet = true
-//            make.target = self
-//            self.associateWith(make, type: &AnimateAssociatedKeys.Spring)
-//            return make
-//        }
-//    }
-//    
-//    public var decay: DecayView {
-//        if let make = getAssociate(&AnimateAssociatedKeys.Decay) as? DecayView{
-//            return make
-//        }else{
-//            let make = DecayView()
-//            make.animateWhenSet = true
-//            make.target = self
-//            self.associateWith(make, type: &AnimateAssociatedKeys.Decay)
-//            return make
-//        }
-//    }
-//    
-//    public var basic: BasicView {
-//        if let make = getAssociate(&AnimateAssociatedKeys.Basic) as? BasicView{
-//            return make
-//        }else{
-//            let make = BasicView()
-//            make.animateWhenSet = true
-//            make.target = self
-//            self.associateWith(make, type: &AnimateAssociatedKeys.Basic)
-//            return make
-//        }
-//    }
-//    
-//    private func getAssociate(type:UnsafePointer<Void>)->AnyObject!{
-//        return objc_getAssociatedObject(self, type)
-//    }
-//    
-//    private func associateWith(view:AnyObject,type:UnsafePointer<Void>){
-//        objc_setAssociatedObject(self, type, view, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-//    }
-//    
-//}
-//
-//// MARK: - Public Function
-//public extension AnimateUIView {
-//
-//    public func delay(delay:Double)->AnimateUIView{
-//        self.delayTime = delay
-//        return self
-//    }
-//    public func done(done:NextAnimtionBlock){
-//        self.doneBlock = done
-//    }
-//    
-//    public func spring(@noescape closure: (make: SpringView) -> Void) -> AnimateUIView {
-//        let make = SpringView()
-//        closure(make: make)
-//        nextAnimation = make
-//        (nextAnimation as! AnimateUIView).target = self
-//        return make
-//    }
-//    
-//    public func decay(@noescape closure: (make: DecayView) -> Void) -> AnimateUIView {
-//        let make = DecayView()
-//        closure(make: make)
-//        nextAnimation = make
-//        (nextAnimation as! AnimateUIView).target = self
-//        return make
-//    }
-//    
-//    public func basic(@noescape closure: (make: BasicView) -> Void) -> AnimateUIView {
-//        let make = BasicView()
-//        closure(make: make)
-//        nextAnimation = make
-//        (nextAnimation as! AnimateUIView).target = self
-//        return make
-//    }
-//   
-//}
+// MARK: - Public Function
+public extension AnimateShape {
+    
+    public override func delay(delay:Double)->AnimateShape{
+        self.delayTime = delay
+        return self
+    }
+    
+    
+    public func springs(@noescape closure: (make: SpringShape) -> Void) -> AnimateShape {
+        let make = SpringShape()
+        closure(make: make)
+        nextAnimation = make
+        nextAnimation.target = self
+        return make
+    }
+    
+    public func decays(@noescape closure: (make: DecayShape) -> Void) -> AnimateShape {
+        let make = DecayShape()
+        closure(make: make)
+        nextAnimation = make
+        nextAnimation.target = self
+        return make
+    }
+    
+    public func basics(@noescape closure: (make: BasicShape) -> Void) -> AnimateShape {
+        let make = BasicShape()
+        closure(make: make)
+        nextAnimation = make
+        nextAnimation.target = self
+        return make
+    }
+    
+}
 
 
 
-// MARK: - Main Class
 // MARK: - Basic
-public class BasicView: AnimateUIView,AnimateApplyProtocol,POPAnimationDelegate {
+public class BasicShape: AnimateShape,AnimateApplyProtocol,POPAnimationDelegate {
     /**
     @abstract The duration in seconds. Defaults to 0.4.
     */
@@ -133,7 +129,7 @@ public class BasicView: AnimateUIView,AnimateApplyProtocol,POPAnimationDelegate 
     
     
     deinit{
-        debugPrint("deinit Basic", appendNewline: false)
+        debugPrint("deinit Basic")
     }
     
     
@@ -148,9 +144,9 @@ public class BasicView: AnimateUIView,AnimateApplyProtocol,POPAnimationDelegate 
     /**
     Apply animate to view
     
-    - parameter view: to animate
+    :param: view to animate
     */
-    public func applyTo(view:AnyObject){
+    public override func applyTo(view:AnyObject){
         if animates.count == 0 {
             self.playNext()
             return
@@ -175,7 +171,7 @@ public class BasicView: AnimateUIView,AnimateApplyProtocol,POPAnimationDelegate 
     }
 }
 // MARK: - Spring
-public class SpringView: AnimateUIView,AnimateApplyProtocol,POPAnimationDelegate{
+public class SpringShape: AnimateShape,AnimateApplyProtocol,POPAnimationDelegate{
     /**
     @abstract The current velocity value.
     @discussion Set before animation start to account for initial velocity. Expressed in change of value units per second.
@@ -215,7 +211,7 @@ public class SpringView: AnimateUIView,AnimateApplyProtocol,POPAnimationDelegate
     
     
     deinit{
-        debugPrint("deinit Spring", appendNewline: false)
+        debugPrint("deinit Spring")
     }
     
     
@@ -230,9 +226,9 @@ public class SpringView: AnimateUIView,AnimateApplyProtocol,POPAnimationDelegate
     /**
     Apply animate to view
     
-    - parameter view: to animate
+    :param: view to animate
     */
-    public func applyTo(view:AnyObject){
+    public override func applyTo(view:AnyObject){
         if animates.count == 0 {
             self.playNext()
             return
@@ -271,7 +267,7 @@ public class SpringView: AnimateUIView,AnimateApplyProtocol,POPAnimationDelegate
     
 }
 // MARK: - Decay
-public class DecayView: AnimateUIView,AnimateApplyProtocol,POPAnimationDelegate{
+public class DecayShape: AnimateShape,AnimateApplyProtocol,POPAnimationDelegate{
     /**
     @abstract The deceleration factor.
     @discussion Values specifies should be in the range [0, 1]. Lower values results in faster deceleration. Defaults to 0.998.
@@ -282,7 +278,7 @@ public class DecayView: AnimateUIView,AnimateApplyProtocol,POPAnimationDelegate{
     @abstract The current velocity value.
     @discussion Set before animation start to account for initial velocity. Expressed in change of value units per second. The only POPValueTypes supported for velocity are: kPOPValuePoint, kPOPValueInteger, kPOPValueFloat, kPOPValueRect, and kPOPValueSize.
     */
-    public var velocity: AnyObject!
+    private var velocity: AnyObject!
     
     
     
@@ -292,7 +288,7 @@ public class DecayView: AnimateUIView,AnimateApplyProtocol,POPAnimationDelegate{
         type = .Decay
     }
     deinit{
-        debugPrint("deinit Decay", appendNewline: false)
+        debugPrint("deinit Decay")
     }
     
     public func velocity(v:AnyObject,forProperty property:String){
@@ -305,9 +301,9 @@ public class DecayView: AnimateUIView,AnimateApplyProtocol,POPAnimationDelegate{
     /**
     Apply animate to view
     
-    - parameter view: to animate
+    :param: view to animate
     */
-    public func applyTo(view:AnyObject){
+    public override func applyTo(view:AnyObject){
         if animates.count == 0 {
             self.playNext()
             return
@@ -332,132 +328,64 @@ public class DecayView: AnimateUIView,AnimateApplyProtocol,POPAnimationDelegate{
     }
 }
 
-// MARK: - AnimateUIView
-public class AnimateUIView: NSObject{
-    
+
+public class AnimateShape: AnimateCALayer, AnimateApplyProtocol{
     deinit{
-        debugPrint("deinit AnimateUIView", appendNewline: false)
+        debugPrint("deinit AnimateShape")
     }
     
-    
-    
-    public var alpha: CGFloat!{
+    public var strokeStart: CGFloat!{
         didSet {
-            if let value = alpha {
-                let anim = animator(kPOPViewAlpha)
+            if let value = strokeStart {
+                let anim = animator(kPOPShapeLayerStrokeStart)
                 anim.toGenericValue(value,type)
                 addAnimate(anim)
             }
         }
     }
     
-    public var backgroundColor: UIColor! {
+    public var strokeEnd: CGFloat!{
         didSet {
-            if let value = backgroundColor {
-                if self.type != .Decay {
-                    let anim = animator(kPOPViewBackgroundColor)
-                    anim.toValue = value
-                    addAnimate(anim)
-                }
-            }
-        }
-    }
-    
-    public var bounds: CGRect!{
-        didSet {
-            if let value = bounds {
-                let anim = animator(kPOPViewBounds)
-                anim.toGenericValue(NSValue(CGRect:value),type)
-                addAnimate(anim)
-            }
-        }
-    }
-    public var center: CGPoint!{
-        didSet {
-            if let value = center {
-                let anim = animator(kPOPViewCenter)
-                anim.toGenericValue(NSValue(CGPoint:value),type)
-                addAnimate(anim)
-            }
-        }
-    }
-    
-    public var frame: CGRect! {
-        didSet{
-            if let value = frame {
-                let anim = animator(kPOPViewFrame)
-                anim.toGenericValue(NSValue(CGRect:value),type)
-                addAnimate(anim)
-            }
-        }
-    }
-    
-    public var scaleX: CGFloat!{
-        didSet {
-            if let value = scaleX {
-                let anim = animator(kPOPViewScaleX)
+            if let value = strokeEnd {
+                let anim = animator(kPOPShapeLayerStrokeEnd)
                 anim.toGenericValue(value,type)
                 addAnimate(anim)
             }
         }
     }
     
-    public var scaleXY: CGSize!{
+    public var strokeColor: UIColor!{
         didSet {
-            if let value = scaleXY {
-                let anim = animator(kPOPViewScaleXY)
-                anim.toGenericValue(NSValue(CGSize: value),type)
-                addAnimate(anim)
-            }
-        }
-    }
-    
-    public var scaleY: CGFloat!{
-        didSet {
-            if let value = scaleY {
-                let anim = animator(kPOPViewScaleY)
+            if let value = strokeColor {
+                let anim = animator(kPOPShapeLayerStrokeColor)
                 anim.toGenericValue(value,type)
                 addAnimate(anim)
             }
         }
     }
     
-    public var size: CGSize!{
+    public var fillColor: UIColor!{
         didSet {
-            if let value = size {
-                let anim = animator(kPOPViewSize)
-                anim.toGenericValue(NSValue(CGSize:value),type)
+            if let value = fillColor {
+                let anim = animator(kPOPShapeLayerFillColor)
+                anim.toGenericValue(value,type)
                 addAnimate(anim)
             }
         }
     }
     
-    public var tintColor: UIColor!{
-        didSet {
-            if let value = tintColor {
-                if self.type != .Decay {
-                    let anim = animator(kPOPViewTintColor)
-                    anim.toValue = value
-                    addAnimate(anim)
-                }
-            }
-        }
-    }
     
     private func associate(){
         if !self.target {
-            objc_setAssociatedObject(self.target, &AnimateAssociatedKeys.SelfRetain, self, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self.target, &AnimateAssociatedKeys.SelfRetain, self, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
         }
     }
-    
-    
-    var doneBlock: NextAnimtionBlock!
     // MARK: - private
     private var animateWhenSet: Bool = false
     private var animating: Bool = false
     private var animates = [AnyObject]()
     private var animatesQueue = [AnyObject]()
-    private weak var nextAnimation:AnyObject!
+    private weak var nextAnimation:AnimateShape!
     private var delayTime: Double = 0
     private var type: AnimateType = .Spring
     private weak var target: AnyObject!{
@@ -467,54 +395,44 @@ public class AnimateUIView: NSObject{
     }
     private var doneCount: Int = 0
     
+    public func applyTo(target: AnyObject) {
+        
+    }
+}
+// MARK: - Setter
+/*
+let kPOPShapeLayerStrokeStart: String
+let kPOPShapeLayerStrokeEnd: String
+let kPOPShapeLayerStrokeColor: String
+let kPOPShapeLayerFillColor: String
+*/
+extension AnimateShape {
+    public func setAnimateStrokeStart(value:CGFloat){
+        strokeStart = value
+    }
+    public func setAnimateStrokeEnd(value:CGFloat){
+        strokeEnd = value
+    }
+    public func setAnimateStrokeColor(value:UIColor){
+        strokeColor = value
+    }
+    public func setAnimateFillColor(value:UIColor){
+        fillColor = value
+    }
+}
+// MARK: - Private Function
+extension AnimateShape {
+    
     private func addAnimate(obj:AnyObject){
         if animating {
             animatesQueue.insert(obj, atIndex: 0)
         }else{
             animates.append(obj)
             if animateWhenSet{
-                (self as AnyObject).applyTo(self.target)
+                self.applyTo(self.target)
             }
         }
-        
     }
-    
-}
-// MARK: - Setter
-extension AnimateUIView {
-    public func setAnimateSize(value:CGSize){
-        size = value
-    }
-    public func setAnimateAlpha(value:CGFloat){
-        alpha = value
-    }
-    public func setAnimateBackgroundColor(value:UIColor){
-        backgroundColor = value
-    }
-    public func setAnimateTintColor(value:UIColor){
-        tintColor = value
-    }
-    public func setAnimateBounds(value:NSValue){
-        bounds = value.CGRectValue()
-    }
-    public func setAnimateFrame(value:NSValue){
-        frame = value.CGRectValue()
-    }
-    public func setAnimateCenter(value:NSValue){
-        center = value.CGPointValue()
-    }
-    public func setAnimateScaleX(value:CGFloat){
-        scaleX = value
-    }
-    public func setAnimateScaleY(value:CGFloat){
-        scaleY = value
-    }
-    public func setAnimateScaleXY(value:NSValue){
-        scaleXY = value.CGSizeValue()
-    }
-}
-// MARK: - Private Function
-extension AnimateUIView {
     
     private func animator(name:String!)->POPPropertyAnimation{
         var anim: POPPropertyAnimation = POPSpringAnimation(propertyNamed: name)
@@ -552,7 +470,7 @@ extension AnimateUIView {
         if !self.nextAnimation {
             self.nextAnimation?.applyTo(self.target)
         }else{
-            !doneBlock ? doneBlock() : (debugPrint("", appendNewline: false))
+            !doneBlock ? doneBlock() : (debugPrint())
         }
     }
     

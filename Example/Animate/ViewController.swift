@@ -44,46 +44,6 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-//        var view:UIView! = UIView(frame: CGRectMake(10, 10, 50, 50))
-//        view.backgroundColor = UIColor.orangeColor()
-//        self.view.addSubview(view)
-        /*
-        .spring({ (make) -> Void in
-        make.backgroundColor = UIColor.orangeColor()
-        make.center = CGPointMake(200, 300)
-        }).delay(1)
-        .decay({ (make) -> Void in
-        make.velocity(NSValue(CGPoint:CGPointMake(150, 150)),forProperty:kPOPViewCenter)
-        make.velocity(NSValue(CGRect:CGRectMake(0, 0, 200, 200)),forProperty:kPOPViewBounds)
-        }).delay(1)
-        
-        */
-//        view.basic { (make) -> Void in
-//            make.backgroundColor = UIColor.grayColor()
-//            make.center = CGPointMake(200, 200)
-//            }.delay(1)
-//            .spring({ (make) -> Void in
-//                make.backgroundColor = UIColor.orangeColor()
-//                make.center = CGPointMake(200, 300)
-//            }).decay({ (make) -> Void in
-//                make.velocity(NSValue(CGPoint:CGPointMake(150, 150)),forProperty:kPOPViewCenter)
-//                make.velocity(NSValue(CGRect:CGRectMake(0, 0, 200, 200)),forProperty:kPOPViewBounds)
-//            }).delay(1)
-//            .done { () -> Void in
-//                view.removeFromSuperview()
-//                view = nil
-//        }
-        
-        
-//            self.testView.spring.frame = CGRectMake(20, 120, 200, 200)
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(1 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
-//                self.testView.spring.frame = CGRectMake(220, 10, 100, 300)
-//            }
-        
-//        self.testView.decay.frame = CGRectMake(220, 10, 100, 300)
-
-    }
 
 }
 extension ViewController {
@@ -92,6 +52,7 @@ extension ViewController {
             _tableView = UITableView(frame: self.view.bounds, style: UITableViewStyle.Plain)
             _tableView.delegate = self
             _tableView.dataSource = self
+            _tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
             _tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         }
         return _tableView
@@ -196,7 +157,7 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate{
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as? UITableViewCell
+        var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
         if ??cell {
             cell = UITableViewCell(style: .Default, reuseIdentifier: "cell")
         }
@@ -211,7 +172,7 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate{
     //MARK: UITableViewDelegate
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var vc = self.vcs[indexPath.row]
+        let vc = self.vcs[indexPath.row]
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

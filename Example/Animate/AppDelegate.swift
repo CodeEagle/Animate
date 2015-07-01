@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        test()
         return true
     }
 
@@ -40,7 +40,35 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
+    
+    func test(){
+        let queue = NSMutableArray()
+        let one = NSBlockOperation()
+        let two = NSBlockOperation()
+        let three = NSBlockOperation()
+        one.addExecutionBlock { () -> Void in
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
+                println("hahah One:\(NSDate())")
+                two.start()
+            }
+        }
+        
+        
+        two.addExecutionBlock { () -> Void in
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
+                println("hahah two:\(NSDate())")
+                three.start()
+            }
+        }
+        
+        
+        three.addExecutionBlock { () -> Void in
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
+                println("hahah three:\(NSDate())")
+            }
+        }
+        one.start()
+    }
 
 }
 

@@ -89,7 +89,7 @@ extension TestTemplateViewController: UIPickerViewDataSource, UIPickerViewDelega
         return self.dataList.count
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return self.dataList.keys.array[row]
     }
     
