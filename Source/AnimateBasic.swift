@@ -62,7 +62,7 @@ extension AnimateBasic {
                     basicAnim.timingFunction = timingFunction!
                 }
                 basicAnim.delegate = self
-                view.pop_addAnimation(basicAnim, forKey: AnimateAssociatedKeys.Basic)
+                view.pop_addAnimation(basicAnim, forKey: basicAnim.property.name)
             }
         }
     }

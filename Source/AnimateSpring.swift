@@ -90,7 +90,7 @@ extension AnimateSpring {
                     anim.velocity = velocity!
                 }
                 anim.delegate = self
-                target.pop_addAnimation(anim, forKey: AnimateAssociatedKeys.Spring)
+                target.pop_addAnimation(anim, forKey: anim.property.name)
             }
         }
     }

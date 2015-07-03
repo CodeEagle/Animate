@@ -405,7 +405,7 @@ public class BasicProperties: NSObject {
      var doneCount: Int = 0
     
      func addAnimate(obj:AnyObject){
-        if animating {
+        if animating && !animateWhenSet{
             animatesQueue.insert(obj, atIndex: 0)
         }else{
             animates.append(obj)

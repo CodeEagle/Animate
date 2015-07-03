@@ -58,7 +58,7 @@ extension AnimateDecay{
                     decayAnim.deceleration = deceleration!
                 }
                 decayAnim.delegate = self
-                view.pop_addAnimation(decayAnim, forKey: AnimateAssociatedKeys.Decay)
+                view.pop_addAnimation(decayAnim, forKey: decayAnim.property.name)
             }
         }
     }
