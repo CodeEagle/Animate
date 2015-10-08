@@ -100,8 +100,8 @@ class CALayerTestViewController: TestTemplateViewController {
         
         self.testView.layer.basic.timingFunction = CAMediaTimingFunction.easeIn()
         
-        var value: AnyObject! = self.dataList.values.array[currentProperty]
-        let key = self.dataList.keys.array[currentProperty]
+        var value: AnyObject! = Array(dataList.values)[currentProperty]
+        let key = Array(dataList.keys)[currentProperty]
         if currentStyle == 1 && key == "Alpha" {
             value = -1.8
         }

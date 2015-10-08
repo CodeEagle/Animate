@@ -1,0 +1,6 @@
+framework module Animate {
+  umbrella header "Animate-umbrella.h"
+
+  export *
+  module * { export * }
+}

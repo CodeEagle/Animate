@@ -1,20 +1,17 @@
 PODS:
-  - Animate (0.1.0):
+  - Animate (0.1.5):
     - pop (~> 1.0.7)
-  - FBSnapshotTestCase (1.8.1)
-  - pop (1.0.7)
+  - pop (1.0.8)
 
 DEPENDENCIES:
   - Animate (from `../`)
-  - FBSnapshotTestCase
 
 EXTERNAL SOURCES:
   Animate:
     :path: ../
 
 SPEC CHECKSUMS:
-  Animate: 4095656f9203c6f95835f1b567083d2f4204c941
-  FBSnapshotTestCase: 3dc3899168747a0319c5278f5b3445c13a6532dd
-  pop: 628ffc631644601567ee8bfaaaea493ebd7d0923
+  Animate: 92c93671136027454659cf5210f24f0b88eef7ec
+  pop: bb773ae2c791ca2629de13b347e7a8b450fa6a57
 
-COCOAPODS: 0.37.2
+COCOAPODS: 0.39.0.rc.1

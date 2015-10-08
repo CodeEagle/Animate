@@ -42,13 +42,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func test(){
-        let queue = NSMutableArray()
+//        let queue = NSMutableArray()
         let one = NSBlockOperation()
         let two = NSBlockOperation()
         let three = NSBlockOperation()
         one.addExecutionBlock { () -> Void in
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
-                println("hahah One:\(NSDate())")
+                print("hahah One:\(NSDate())")
                 two.start()
             }
         }
@@ -56,7 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         two.addExecutionBlock { () -> Void in
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
-                println("hahah two:\(NSDate())")
+                print("hahah two:\(NSDate())")
                 three.start()
             }
         }
@@ -64,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         three.addExecutionBlock { () -> Void in
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC))), dispatch_get_main_queue()) { () -> Void in
-                println("hahah three:\(NSDate())")
+                print("hahah three:\(NSDate())")
             }
         }
         one.start()

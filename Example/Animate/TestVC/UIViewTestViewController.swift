@@ -88,7 +88,7 @@ class UIViewTestViewController: TestTemplateViewController {
     func Animate(){
         let animator = currentStyle == 0 ? self.testView.spring : (currentStyle == 1 ? self.testView.decay : self.testView.basic)
         
-        let v: AnyObject = self.velocityList.values.array[currentProperty]
+        let v: AnyObject = Array(velocityList.values)[currentProperty]
         
         self.testView.spring.springBounciness = 20
         self.testView.spring.springSpeed = 20
@@ -97,8 +97,8 @@ class UIViewTestViewController: TestTemplateViewController {
         self.testView.basic.timingFunction = CAMediaTimingFunction.easeIn()
         
         self.testView.decay.velocity = v
-        let value: AnyObject! = self.dataList.values.array[currentProperty]
-        let key = self.dataList.keys.array[currentProperty]
+        let value: AnyObject! = Array(dataList.values)[currentProperty]
+        let key = Array(dataList.keys)[currentProperty]
         
         animator.setValue(value, forKeyPath: "Animate"+key)
     }

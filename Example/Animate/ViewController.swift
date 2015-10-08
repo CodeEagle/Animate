@@ -157,7 +157,7 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate{
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
+        var cell: UITableViewCell! = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) 
         if ??cell {
             cell = UITableViewCell(style: .Default, reuseIdentifier: "cell")
         }

@@ -1,6 +1,0 @@
-framework module Pods_Animate_Tests {
-  umbrella header "Pods-Animate_Tests-umbrella.h"
-
-  export *
-  module * { export * }
-}

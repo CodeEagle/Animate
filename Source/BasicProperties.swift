@@ -540,7 +540,7 @@ extension BasicProperties: POPAnimationDelegate {
     
     private func associate(){
         if !self.target {
-            objc_setAssociatedObject(self.target, &AnimateAssociatedKeys.SelfRetain, self, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+            objc_setAssociatedObject(self.target, &AnimateAssociatedKeys.SelfRetain, self, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     
@@ -588,7 +588,7 @@ extension BasicProperties: POPAnimationDelegate {
                 }
             }
         }else{
-            !doneBlock ? doneBlock() : (debugPrint("no more animate", appendNewline: false))
+            !doneBlock ? doneBlock() : (debugPrint("no more animate"))
         }
     }
     

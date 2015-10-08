@@ -291,7 +291,7 @@ extension NSObject {
     }
     
     private func associateWith(aniamte:AnyObject,type:UnsafePointer<Void>){
-        objc_setAssociatedObject(self, type, aniamte, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+        objc_setAssociatedObject(self, type, aniamte, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
 }
 

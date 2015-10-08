@@ -89,7 +89,7 @@ extension TestTemplateViewController: UIPickerViewDataSource, UIPickerViewDelega
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return self.dataList.keys.array[row]
+        return Array(dataList.keys)[row]
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
